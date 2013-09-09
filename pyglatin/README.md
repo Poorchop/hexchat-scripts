@@ -6,7 +6,7 @@ This script is based on the PygLatin Python exercise written by Kate Lockwood:
 
 Usage
 =====
-/pyg <message>
+/pyg &lt;message&gt;
 
 Notes
 =====
