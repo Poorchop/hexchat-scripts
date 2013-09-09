@@ -16,4 +16,4 @@ Credits
 =======
 Thanks to [TingPing] (https://github.com/TingPing) for help with some syntax.
 
-This script is under the [MIT license] (./license)
+This script is under the [MIT license] (./license).
