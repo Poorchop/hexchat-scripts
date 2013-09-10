@@ -10,5 +10,6 @@ Usage:
 
 Notes:
 ======
-This script does not currently handle words containing numbers or punctuation. You must enter at least one character after the command, or you will receive an error message.
+This script does not currently handle words containing numbers or punctuation.
+
 Thanks to [TingPing] (https://github.com/TingPing) for help with some syntax.
