@@ -2,7 +2,7 @@ import hexchat
 
 __module_name__ = "Join/Part Tab"
 __module_author__ = "PoorDog"
-__module_version__ = "0.1"
+__module_version__ = "0.1.1"
 __module_description__ = "Place join/part messages in a separate tab for designated servers"
 
 hexchat.prnt (__module_name__ + " version " + __module_version__ + " loaded.")
@@ -38,4 +38,4 @@ def jpfilter_cb(word, word_eol, userdata):
 hexchat.hook_print("Join", jpfilter_cb, "Join")
 hexchat.hook_print("Part", jpfilter_cb, "Part")
 
-hexchat.command("query {0}".format(tab_name))
+hexchat.command("NEWSERVER -noconnect {0}".format(tab_name))
