@@ -6,11 +6,11 @@ Usage:
 ======
 If you want joins/parts to be filtered for a particular server, add it to "host_list". You must add the name of the actual host to which you are connected (chat.freenode.net, irc.mozilla.org, ...) You can double check the name of the host by clicking on a server tab and entering this into the text box:
 
-  /py exec import hexchat; print(hexchat.get_info("host"))
+    /py exec import hexchat; print(hexchat.get_info("host"))
 
 Then add the resulting string to "host_list":
 
-  host_list = ["irc.twitch.tv", "chat.freenode.net", "irc.mozilla.org"]
+    host_list = ["irc.twitch.tv", "chat.freenode.net", "irc.mozilla.org"]
 
 Notes:
 ======
