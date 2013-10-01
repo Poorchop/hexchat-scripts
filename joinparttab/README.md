@@ -14,4 +14,4 @@ Then add the resulting string to "host_list":
 
 Notes:
 ======
-Most of this script is just Arnavion's [highlight.py] (https://github.com/Arnavion/random/blob/master/hexchat/highlight.py) script with some words changed around, so most credit goes to him.
+Most of this script is just Arnavion's [highlight.py] (https://github.com/Arnavion/random/blob/master/hexchat/highlight.py) script and Wardje's [highlightlog.py] (https://github.com/Wardje/xchat-scripts/blob/master/highlightlog.py) script with some words changed around, so most credit goes to them.
