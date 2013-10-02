@@ -2,7 +2,7 @@ import hexchat
 
 __module_name__ = "Join/Part Tab"
 __module_author__ = "PoorDog"
-__module_version__ = "0.2.1"
+__module_version__ = "0.2.2"
 __module_description__ = "Place join/part messages in a separate tab for designated servers"
 
 hexchat.prnt (__module_name__ + " version " + __module_version__ + " loaded.")
@@ -44,9 +44,10 @@ def jpfilter_cb(word, word_eol, userdata):
         elif userdata == "Quit":
             if len(word) > 2:
                 jp_context.prnt("{0} \00324*\t{1} has quit ({2})".format(channel, word[0], word[1]))
+                return hexchat.EAT_ALL
             else:
-                jp_context.prnt("{0} \00324*\t{1} has quit ()".format(channel, word[0])
-            return hexchat.EAT_ALL
+                jp_context.prnt("{0} \00324*\t{1} has quit ()".format(channel, word[0]))
+                return hexchat.EAT_ALL
     else:
         # print join/part messages normally for all other servers
         return hexchat.EAT_NONE
