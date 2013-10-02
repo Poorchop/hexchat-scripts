@@ -1,16 +1,20 @@
 Join/Part Tab
 =============
-This script aggregates all join and part mesages from a user-defined list of servers and places them in a new tab. The name of the channel from where the join/part event originated is displayed before each join/part message.
+This script aggregates all join, part, and quit mesages from a user-defined list of servers and/or channels and places them in a new tab. The name of the channel from where the join/part/quit event originated is displayed before each join/part/quit message.
 
 Usage:
 ======
-If you want joins/parts to be filtered for a particular server, add it to "host_list". You must add the name of the actual host to which you are connected (chat.freenode.net, irc.mozilla.org, ...) You can double check the name of the host by clicking on a server tab and entering this into the text box:
+If you want joins/parts/quits to be filtered for a particular server, add it to "host_list". You must add the name of the actual host to which you are connected (chat.freenode.net, irc.mozilla.org, ...) You can double check the name of the host by clicking on a server tab and entering this into the text box:
 
     /py exec import hexchat; print(hexchat.get_info("host"))
 
-Then add the resulting string to "host_list":
+Then add the resulting string to "host_list", save the script, and reload it:
 
-    host_list = ["irc.twitch.tv", "chat.freenode.net", "irc.mozilla.org"]
+    host_list = ["irc.twitch.tv", "chat.freenode.net", "irc.mozilla.org", ]
+
+You can also filter by channel. Add the name of the channel you wish to filter to "channel_list", save, and reload:
+    
+    channel_list = ["##linux", "#hexchat", ]
 
 Notes:
 ======
