@@ -2,7 +2,7 @@ import hexchat
 
 __module_name__ = "Twitch Emote Autoformat"
 __module_author__ = "PoorDog"
-__module_version__ = "0.2.1"
+__module_version__ = "0.3"
 __module_description__ = "Automatically format twitch.tv emote names with proper capitalization"
 
 hexchat.prnt (__module_name__ + " version " + __module_version__ + " loaded.")
@@ -10,8 +10,14 @@ hexchat.prnt (__module_name__ + " version " + __module_version__ + " loaded.")
 twitch_help = "Twitch: To add an emote for current session:\n \
   /twitch add <alias> <emote>\n \
   Ex: /twitch add frankerz FrankerZ\n \
+  To remove an alias for current session:\n \
+  /twitch delete <alias>\n \
   To list your current emotes:\n \
-  /twitch emotes"
+  /twitch emotes\n \
+  To list your current aliases:\n \
+  /twitch aliases\n \
+  To check the emote associated with an alias:\n \
+  /twitch output <alias>"
   # add info for mod commands when combining with TingPing's twitch.py script
 
 # emote_dict is customizable. You can easily add or remove rules to your liking. Subscriber-only emotes are not included in the default list, so these can appended as necessary.
@@ -113,13 +119,30 @@ def twitch_cb(word, word_eol, userdata):
 
         if cmd == "add" and len(word) == 4:
             emote_dict.update({word[2] : word[3]})
-            hexchat.prnt("\00319\002{0}\002\00399 with alias \00320\002{1}\002\00399 successfully added to emote list!".format(word[3], word[2]))
+            hexchat.prnt("*\t\00319\002{0}\002\00399 with alias \00320\002{1}\002\00399 successfully added to emote list!".format(word[3], word[2]))
+        elif cmd == "delete" and len(word) == 3:
+            if word[2] in emote_dict:
+                del emote_dict[word[2]]
+                hexchat.prnt("*\t\00320\002{0}\002\00399 is no longer associated with an emote.".format(word[2]))
+            else:
+                hexchat.prnt("*\tThere is no emote associated with that alias!")
         elif cmd == "emotes":
             emote_lst = []
             for key in emote_dict:
                 emote_lst.append(emote_dict[key])
             emote_lst.sort()
             hexchat.prnt(" ".join(emote_lst))
+        elif cmd == "aliases":
+            alias_lst = []
+            for key in emote_dict:
+                alias_lst.append(key)
+            alias_lst.sort()
+            hexchat.prnt(" ".join(alias_lst))
+        elif cmd == "output" and len(word) == 3:
+            if word[2] in emote_dict:
+                hexchat.prnt("*\tEmote association for \00320\002{0}\002\00399 is: \00319\002{1}\002\00399".format(word[2], emote_dict[word[2]]))
+            else:
+                hexchat.prnt("*\tThere is no emote associated with that alias!")
         # Uncomment elif block below when combining with TingPing's twitch.py script
         # elif cmd == "commands":
         #     for command in commands:
