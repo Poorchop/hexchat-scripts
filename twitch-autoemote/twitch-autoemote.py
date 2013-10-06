@@ -2,7 +2,7 @@ import hexchat
 
 __module_name__ = "Twitch Emote Autoformat"
 __module_author__ = "PoorDog"
-__module_version__ = "0.3.1"
+__module_version__ = "0.3.2"
 __module_description__ = "Automatically format twitch.tv emote names with proper capitalization"
 
 hexchat.prnt (__module_name__ + " version " + __module_version__ + " loaded.")
@@ -162,11 +162,10 @@ def emote_cb(word, word_eol, userdata):
     if is_twitch() and unedited and len(word) > 0:
         unedited = False
         split_words = word_eol[0].split(" ")
-        split_lower = [x.lower() for x in split_words]
 
-        for y in range(0, len(split_lower)):
-            if split_lower[y] in emote_dict:
-                split_words[y] = emote_dict[split_lower[y]]
+        for i in range(0, len(split_words)):
+            if split_words[i].lower() in emote_dict:
+                split_words[i] = emote_dict[split_words[i].lower()]
 
         new_words = " ".join(split_words)
         hexchat.command("say {}".format(new_words))
