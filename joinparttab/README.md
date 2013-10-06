@@ -1,21 +1,29 @@
 Join/Part Tab
-=============
+-------------
 This script aggregates all join, part, and quit mesages from a user-defined list of servers and/or channels and places them in a new tab. The name of the channel from where the join/part/quit event originated is displayed before each join/part/quit message.
 
 Usage:
-======
-If you want joins/parts/quits to be filtered for a particular server, add it to "host_list". You must add the name of the actual host to which you are connected (chat.freenode.net, irc.mozilla.org, ...) You can double check the name of the host by clicking on a server tab and entering this into the text box:
+------
+You can customize the name of the filter tab by setting `tab_name = ""` to whatever you like. Place your desired name between the quotes.
 
-    /py exec import hexchat; print(hexchat.get_info("host"))
+#### To filter a channel:
+* Make the channel you wish to filter the active tab
+* `/jptab add channel`
+You will see a message that the current activated channel under the current network has been added to the filter list.
 
-Then add the resulting string to "host_list", save the script, and reload it:
+#### To filter an entire network:
+* Click on the network tab OR on any of the channel tabs under the network you wish to filter
+* `/jptab add network`
+You will see a message that the current network has been added to the filter list. All channels under this network will have their join/part/quit messages filtered and moved to the filter tab.
 
-    host_list = ["irc.twitch.tv", "chat.freenode.net", "irc.mozilla.org", ]
-
-You can also filter by channel. Add the name of the channel you wish to filter to "channel_list", save, and reload:
-    
-    channel_list = ["##linux", "#hexchat", ]
+#### To remove a channel or network filter:
+* Activate the desired channel or network as described above
+* For a channel:
+    * `/jptab remove channel`
+* For a network:
+    * `/jptab remove network`
+If executed properly, you will see a message that the channel/network has been removed from the filter list.
 
 Notes:
-======
-Most of this script is just Arnavion's [highlight.py] (https://github.com/Arnavion/random/blob/master/hexchat/highlight.py) script and Wardje's [highlightlog.py] (https://github.com/Wardje/xchat-scripts/blob/master/highlightlog.py) script with some words changed around, so most credit goes to them.
+------
+This script was made possible due to templates provided by [Arnavion's] (https://github.com/Arnavion), [Wardje's] (https://github.com/Wardje), and [TingPing's] (https://github.com/TingPing) scripts, and with help from [Farow] (https://github.com/Farow), so I'd like to thank them here.
