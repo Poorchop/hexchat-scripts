@@ -4,16 +4,18 @@ This script aggregates all join, part, and quit mesages from a user-defined list
 
 Usage:
 ------
-You can customize the name of the filter tab by setting `tab_name = ""` to whatever you like. Place your desired name between the quotes.
+You can customize the name of the filter tab by setting `tab_name = ""` to whatever you like. Place your desired name between the quotes. You can view the available commands for this script by typing `/help jptab`.
 
 #### To filter a channel:
 * Make the channel you wish to filter the active tab
 * `/jptab add channel`
+
 You will see a message that the current activated channel under the current network has been added to the filter list.
 
 #### To filter an entire network:
 * Click on the network tab OR on any of the channel tabs under the network you wish to filter
 * `/jptab add network`
+
 You will see a message that the current network has been added to the filter list. All channels under this network will have their join/part/quit messages filtered and moved to the filter tab.
 
 #### To remove a channel or network filter:
@@ -22,7 +24,11 @@ You will see a message that the current network has been added to the filter lis
     * `/jptab remove channel`
 * For a network:
     * `/jptab remove network`
+    
 If executed properly, you will see a message that the channel/network has been removed from the filter list.
+
+#### To view your current filters:
+* `/jptab list filters`
 
 Notes:
 ------
