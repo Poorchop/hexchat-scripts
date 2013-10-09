@@ -17,9 +17,9 @@ Notes:
 ------
 All scripts are under the [MIT license] (./license) unless otherwise stated.
 
-I highly recommend checking out [Farow's readme] (https://github.com/Farow/hexchat-scripts). In addition to his scripts, I use many from all of the repositories that he has linked to, especially [TingPing's] (https://github.com/TingPing/plugins). Also check out my starred repositories to find additional scripts, since that is updated more often than this readme.
+I highly recommend checking out [Farow's readme] (https://github.com/Farow/hexchat-scripts). In addition to his scripts, I use many from all of the repositories that he has linked to, especially [TingPing's] (https://github.com/TingPing/plugins). Also check out my starred repositories to find additional scripts that I might have not yet listed below.
 
-For the sake of convenience, here are some links in addition to Farow's:
+Here are some links in addition to Farow's:
 
 #### GitHub
 * [ChaozZBubi] (https://github.com/ChaozZBubi/tools)
