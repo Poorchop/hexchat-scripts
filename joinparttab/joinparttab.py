@@ -2,7 +2,7 @@ import hexchat
 
 __module_name__ = "Join/Part Tab"
 __module_author__ = "PoorDog"
-__module_version__ = "1.1"
+__module_version__ = "1.2"
 __module_description__ = "Place join/part/quit messages in a separate tab for designated servers and/or channels"
 
 hexchat.prnt (__module_name__ + " version " + __module_version__ + " loaded.")
@@ -44,8 +44,9 @@ def jptab_pref(word, word_eol, userdata):
                 hexchat.prnt("Usage: /jptab [add|remove] channel")
 
         elif word[1].lower() == "list" and word[2].lower() == "filters":
-            network_filters = ", ".join(network_lst)
-            hexchat.prnt("*\tYour join/part network filters are: {}".format(network_filters))
+            if len(network_lst) > 0:
+                network_filters = ", ".join(network_lst)
+                hexchat.prnt("*\tYour join/part network filters are: {}".format(network_filters))
             if len(channel_lst) > 0:
                 channel_filters_lst = []
                 for channel in channel_lst:
@@ -53,6 +54,8 @@ def jptab_pref(word, word_eol, userdata):
                     channel_filters_lst.append(channel + "/" + network)
                 channel_filters = ", ".join(channel_filters_lst)
                 hexchat.prnt("*\tYour join/part channel filters are: {}".format(channel_filters))
+            if len(network_lst) < 1 and len(channel_lst) < 1:
+                hexchat.prnt("*\tYou are not filtering join/part messages on any network or channel")
 
         else:
             hexchat.prnt("Usage: /jptab [add|remove] [network|channel]\n\t       /jptab list filters")
@@ -91,7 +94,7 @@ def load_jpfilters():
 def pref_check():
     if hexchat.get_info("network") in network_lst:
         return True
-    elif hexchat.get_info("channel") in channel_lst and  hexchat.get_info("network") in chan_net_lst:
+    elif hexchat.get_info("channel") in channel_lst and hexchat.get_info("network") in chan_net_lst:
         return True
     else:
         return False
@@ -101,21 +104,21 @@ def jpfilter_cb(word, word_eol, userdata):
     jp_context = hexchat.find_context(channel=tab_name)
 
     if pref_check():
+
         if userdata == "Join":
             jp_context.prnt("{0} \00323*\t{1} ({2}) has joined".format(channel, word[0], word[2]))
-            return hexchat.EAT_ALL
 
         elif userdata == "Part":
             jp_context.prnt("{0} \00324*\t{1} ({2}) has left".format(channel, word[0], word[1]))
-            return hexchat.EAT_ALL
 
         elif userdata == "Quit":
             if len(word) > 2:
                 jp_context.prnt("{0} \00324*\t{1} has quit ({2})".format(channel, word[0], word[1]))
-                return hexchat.EAT_ALL
             else:
                 jp_context.prnt("{0} \00324*\t{1} has quit ()".format(channel, word[0]))
-                return hexchat.EAT_ALL
+
+        return hexchat.EAT_ALL
+
     else:
         # print join/part messages normally for all other servers
         return hexchat.EAT_NONE
@@ -128,8 +131,10 @@ def unload_callback(userdata):
             jp_context.command("CLOSE")
     hexchat.prnt(__module_name__ + " version " + __module_version__ + " unloaded.")
 
-hexchat.hook_command("jptab", jptab_pref, help="Filter joins/parts/quits for a network or channel\n\t  /jptab [add|remove] [network|channel]\n \
-  \tTo list your current filters:\n\t  /jptab list filters")
+hexchat.hook_command("jptab", jptab_pref, help="Filter joins/parts/quits for a network or channel:\n \
+\t  /jptab [add|remove] [network|channel]\n \
+\t  To list your current filters:\n \
+\t  /jptab list filters")
 hexchat.hook_print("Join", jpfilter_cb, "Join")
 hexchat.hook_print("Part", jpfilter_cb, "Part")
 hexchat.hook_print("Quit", jpfilter_cb, "Quit")
