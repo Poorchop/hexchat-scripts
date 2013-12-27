@@ -7,7 +7,7 @@ Installation:
 Place "script.py" in your HexChat addons folder:
 
 * Windows:
-    * `%APPDATA%/HexChat/addons`
+    * `%APPDATA%\HexChat\addons`
 * Linux:
     * `~/.config/hexchat/addons`
 
