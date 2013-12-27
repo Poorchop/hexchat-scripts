@@ -5,6 +5,7 @@ Format messages from specific users to make them easier to follow
 Usage:
 ------
 /follow [nick]
+
 /unfollow [nick]
 
 Notes:
