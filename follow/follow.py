@@ -2,7 +2,7 @@ import hexchat
 
 __module_name__ = "Follow"
 __module_author__ = "PDog"
-__module_version__ = "0.0.1"
+__module_version__ = "0.1"
 __module_description__ = "Format messages from specific users to make them easier to follow"
 
 userlist = []
@@ -13,7 +13,7 @@ def follow_cb(word, word_eol, userdata):
 	
 	if len(word) >= 2 and word[1] not in userlist:
 		userlist.append(word[1])
-		hexchat.prnt("-Follow-\tYou are now following {0}".format(word[1]))
+		hexchat.prnt("-\00322Follow\00399-\tYou are now following \002{0}".format(word[1]))
 		return hexchat.EAT_ALL
 
 def unfollow_cb(word, word_eol, userdata):
@@ -21,7 +21,7 @@ def unfollow_cb(word, word_eol, userdata):
 	
 	if len(word) >= 2 and word[1] in userlist:
 		userlist.remove(word[1])
-		hexchat.prnt("-Follow-\tYou have unfollowed {0}".format(word[1]))
+		hexchat.prnt("-\00322Follow\00399-\tYou have unfollowed \002{0}".format(word[1]))
 		return hexchat.EAT_ALL
 
 def format_cb(word, word_eol, userdata):
