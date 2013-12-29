@@ -1,11 +1,9 @@
 import hexchat
 
 __module_name__ = "Join/Part Tab"
-__module_author__ = "PoorDog"
-__module_version__ = "1.2"
+__module_author__ = "PDog"
+__module_version__ = "1.3"
 __module_description__ = "Place join/part/quit messages in a separate tab for designated servers and/or channels"
-
-hexchat.prnt (__module_name__ + " version " + __module_version__ + " loaded.")
 
 # customize tab name to your liking
 tab_name = "(Joins/Parts)"
@@ -22,11 +20,11 @@ def jptab_pref(word, word_eol, userdata):
         if word[2].lower() == "network" and network != tab_name:
             if word[1].lower() == "add":
                 hexchat.set_pluginpref("jptab_" + network, "network")
-                hexchat.prnt("*\tNetwork \00319{}\00399 added to joint/part filters".format(network))
+                hexchat.prnt("-\00322jptab\00399-\tNetwork \00319{}\00399 added to joint/part filters".format(network))
                 load_jpfilters()
             elif word[1].lower() == "remove":
                 hexchat.del_pluginpref("jptab_" + network)
-                hexchat.prnt("*\tNetwork \00319{}\00399 removed from joint/part filters".format(network))
+                hexchat.prnt("-\00322jptab\00399-\tNetwork \00319{}\00399 removed from joint/part filters".format(network))
                 load_jpfilters()
             else:
                 hexchat.prnt("Usage: /jptab [add|remove] network")
@@ -34,11 +32,11 @@ def jptab_pref(word, word_eol, userdata):
         elif word[2].lower() == "channel" and network != tab_name:
             if word[1].lower() == "add":
                 hexchat.set_pluginpref("jptab_" + channel, network)
-                hexchat.prnt("*\tChannel \00319{0}\00399 on network {1} added to join/part filters".format(channel, network))
+                hexchat.prnt("-\00322jptab\00399-\tChannel \00319{0}\00399 on network {1} added to join/part filters".format(channel, network))
                 load_jpfilters()
             elif word[1].lower() == "remove":
                 hexchat.del_pluginpref("jptab_" + channel)
-                hexchat.prnt("*\tChannel \00319{0}\00399 on network {1} removed from joint/part filters".format(channel, network))
+                hexchat.prnt("-\00322jptab\00399-\tChannel \00319{0}\00399 on network {1} removed from joint/part filters".format(channel, network))
                 load_jpfilters()
             else:
                 hexchat.prnt("Usage: /jptab [add|remove] channel")
@@ -46,16 +44,16 @@ def jptab_pref(word, word_eol, userdata):
         elif word[1].lower() == "list" and word[2].lower() == "filters":
             if len(network_lst) > 0:
                 network_filters = ", ".join(network_lst)
-                hexchat.prnt("*\tYour join/part network filters are: {}".format(network_filters))
+                hexchat.prnt("-\00322jptab\00399-\tYour join/part network filters are: {}".format(network_filters))
             if len(channel_lst) > 0:
                 channel_filters_lst = []
                 for channel in channel_lst:
                     network = get_network(channel)
                     channel_filters_lst.append(channel + "/" + network)
                 channel_filters = ", ".join(channel_filters_lst)
-                hexchat.prnt("*\tYour join/part channel filters are: {}".format(channel_filters))
+                hexchat.prnt("-\00322jptab\00399-\tYour join/part channel filters are: {}".format(channel_filters))
             if len(network_lst) < 1 and len(channel_lst) < 1:
-                hexchat.prnt("*\tYou are not filtering join/part messages on any network or channel")
+                hexchat.prnt("-\00322jptab\00399-\tYou are not filtering join/part messages on any network or channel")
 
         else:
             hexchat.prnt("Usage: /jptab [add|remove] [network|channel]\n\t       /jptab list filters")
@@ -132,9 +130,9 @@ def unload_callback(userdata):
     hexchat.prnt(__module_name__ + " version " + __module_version__ + " unloaded.")
 
 hexchat.hook_command("jptab", jptab_pref, help="Filter joins/parts/quits for a network or channel:\n \
-\t  /jptab [add|remove] [network|channel]\n \
-\t  To list your current filters:\n \
-\t  /jptab list filters")
+\t   /jptab [add|remove] [network|channel]\n \
+\t   To list your current filters:\n \
+\t   /jptab list filters")
 hexchat.hook_print("Join", jpfilter_cb, "Join")
 hexchat.hook_print("Part", jpfilter_cb, "Part")
 hexchat.hook_print("Quit", jpfilter_cb, "Quit")
@@ -142,3 +140,4 @@ hexchat.hook_unload(unload_callback)
 load_jpfilters()
 
 hexchat.command("NEWSERVER -noconnect {0}".format(tab_name))
+hexchat.prnt (__module_name__ + " version " + __module_version__ + " loaded")
