@@ -2,7 +2,7 @@ import hexchat
 
 __module_name__ = "Join/Part Tab"
 __module_author__ = "PDog"
-__module_version__ = "1.4"
+__module_version__ = "1.5"
 __module_description__ = "Place join/part/quit messages in a separate tab for designated servers and/or channels"
 
 # customize tab name to your liking
@@ -105,29 +105,32 @@ def pref_check():
     else:
         return False
 
-def jpfilter_cb(word, word_eol, userdata):
-    channel = hexchat.get_info("channel")
-    jp_context = find_jptab()
+def jpfilter_cb(word, word_eol, event):
+	channel = hexchat.get_info("channel")
+	jp_context = find_jptab()
+	
+	if pref_check():
+		
+		if event == "Join":
+			jp_context.prnt("{0} \00323*\t{1} ({2}) has joined".format(channel, word[0], word[2]))
 
-    if pref_check():
+		elif event == "Part":
+			jp_context.prnt("{0} \00324*\t{1} ({2}) has left".format(channel, word[0], word[1]))
+			
+		elif event == "Part with Reason":
+			jp_context.prnt("{0} \00324*\t{1} ({2}) has left ({3})".format(channel, word[0], word[1], word[3]))
 
-        if userdata == "Join":
-            jp_context.prnt("{0} \00323*\t{1} ({2}) has joined".format(channel, word[0], word[2]))
+		elif event == "Quit":
+			if len(word) > 2:
+				jp_context.prnt("{0} \00324*\t{1} has quit ({2})".format(channel, word[0], word[1]))
+			else:
+				jp_context.prnt("{0} \00324*\t{1} has quit ()".format(channel, word[0]))
 
-        elif userdata == "Part":
-            jp_context.prnt("{0} \00324*\t{1} ({2}) has left".format(channel, word[0], word[1]))
+		return hexchat.EAT_ALL
 
-        elif userdata == "Quit":
-            if len(word) > 2:
-                jp_context.prnt("{0} \00324*\t{1} has quit ({2})".format(channel, word[0], word[1]))
-            else:
-                jp_context.prnt("{0} \00324*\t{1} has quit ()".format(channel, word[0]))
-
-        return hexchat.EAT_ALL
-
-    else:
-        # print join/part messages normally for all other servers
-        return hexchat.EAT_NONE
+	else:
+		# print join/part messages normally for all other servers
+		return hexchat.EAT_NONE
 
 def unload_callback(userdata):
     # find the join/part tab and close it
@@ -141,9 +144,8 @@ hexchat.hook_command("jptab", jptab_pref, help="Filter joins/parts/quits for a n
 \t   /jptab [add|remove] [network|channel]\n \
 \t   To list your current filters:\n \
 \t   /jptab list filters")
-hexchat.hook_print("Join", jpfilter_cb, "Join")
-hexchat.hook_print("Part", jpfilter_cb, "Part")
-hexchat.hook_print("Quit", jpfilter_cb, "Quit")
+for event in ("Join", "Part", "Part with Reason", "Quit"):
+	hexchat.hook_print(event, jpfilter_cb, event)
 hexchat.hook_unload(unload_callback)
 load_jpfilters()
 find_jptab()
