@@ -2,11 +2,19 @@ import hexchat
 
 __module_name__ = "Join/Part Tab"
 __module_author__ = "PDog"
-__module_version__ = "1.3"
+__module_version__ = "1.4"
 __module_description__ = "Place join/part/quit messages in a separate tab for designated servers and/or channels"
 
 # customize tab name to your liking
 tab_name = "(Joins/Parts)"
+
+def find_jptab():
+	context = hexchat.find_context(channel=tab_name)
+	if context == None:
+		hexchat.command("NEWSERVER -noconnect {0}".format(tab_name))
+		return hexchat.find_context(channel=tab_name)
+	else:
+		return context
 
 def get_network(name):
     return hexchat.get_pluginpref("jptab_" + name)
@@ -99,7 +107,7 @@ def pref_check():
 
 def jpfilter_cb(word, word_eol, userdata):
     channel = hexchat.get_info("channel")
-    jp_context = hexchat.find_context(channel=tab_name)
+    jp_context = find_jptab()
 
     if pref_check():
 
@@ -138,6 +146,6 @@ hexchat.hook_print("Part", jpfilter_cb, "Part")
 hexchat.hook_print("Quit", jpfilter_cb, "Quit")
 hexchat.hook_unload(unload_callback)
 load_jpfilters()
+find_jptab()
 
-hexchat.command("NEWSERVER -noconnect {0}".format(tab_name))
-hexchat.prnt (__module_name__ + " version " + __module_version__ + " loaded")
+hexchat.prnt(__module_name__ + " version " + __module_version__ + " loaded")
