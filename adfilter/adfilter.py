@@ -3,8 +3,11 @@ import re
 
 __module_name__ = "AdFilter"
 __module_author__ = "PDog"
-__module_version__ = "0.1"
+__module_version__ = "0.1.1"
 __module_description__ = "Move fserve advertisements to a separate tab"
+
+# Add channels from which you would like to filter ads, e.g. channels = ["#freenode", "#defocus", "##linux"]
+channels = ["#ebooks"]
 
 # Customize the name of the tab to your liking
 tab_name = "(Ads)"
@@ -26,17 +29,16 @@ def adfilter_cb(word, word_eol, userdata):
 
 	word = [(word[i] if len(word) > i else "") for i in range(4)]
 
+	global channels
 	global ad_lst
 	channel = hexchat.get_info("channel")
 	stripped_msg = hexchat.strip(word[1], -1, 3)
 	
 	for ad in ad_lst:
-		if ad.match(stripped_msg):
+		if ad.match(stripped_msg) and channel in channels:
 			ad_context = find_adtab()
 			ad_context.prnt("{0}\t\00318<{4}{3}{1}>\00399 {2}".format(channel, *word))
 			return hexchat.EAT_ALL
-		else:
-			return hexchat.EAT_NONE
 			
 def unload_cb(userdata):
 	for chan in hexchat.get_list("channels"):
