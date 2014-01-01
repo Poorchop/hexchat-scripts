@@ -7,7 +7,7 @@ __module_version__ = "0.1.1"
 __module_description__ = "Move fserve advertisements to a separate tab"
 
 # Add channels from which you would like to filter ads, e.g. channels = ["#freenode", "#defocus", "##linux"]
-channels = ["#ebooks"]
+channels = []
 
 # Customize the name of the tab to your liking
 tab_name = "(Ads)"
