@@ -1,39 +1,31 @@
-# Usage: /pyg <message>
-
-import xchat
+import hexchat
 
 __module_name__ = "PygLatin"
-__module_author__ = "PoorDog"
-__module_version__ = "1.1"
+__module_author__ = "PDog"
+__module_version__ = "2"
 __module_description__ = "Convert text to PygLatin"
 
-xchat.prnt (__module_name__ + " version " + __module_version__ + " loaded.")
-
 pyg = "ay"
+vowels = ["a", "e", "i", "o", "u"]
 
-def pyglatin(word, word_eol, userdata):
-    if len(word_eol) < 2:
-        xchat.prnt("Usage: /pyg <message>")
-        return xchat.EAT_ALL
-    else:
-        split_words = word_eol[1].split(" ")
-        i = 0
+def pyglatin_cb(word, word_eol, userdata):
+	if len(word) < 2:
+		hexchat.prnt("-\00322PygLatin\00399-\tUsage: /pyg <message>")
+	else:
+		word.remove(word[0])
+		for w in word:
+			first = w[0]
+			spliced = w[1:]
+			
+			if first.lower() in vowels:
+				word[word.index(w)] = w + pyg
+			else:
+				word[word.index(w)] = spliced + first + pyg
+	
+		new_msg = " ".join(word)
+		hexchat.command("SAY {0}".format(new_msg))
+		return hexchat.EAT_ALL
 
-        for x in split_words: # this loop modifies the split_words list by changing all individual words to the PygLatin form
-            if len(split_words) > 0 and x.isalpha(): # checks to see if any characters have been entered and that they are all letters
-                first = x[0]
-                spliced = x[1:]
-                if first == "a" or first == "A" or first == "e" or first == "E" or first == "i" or first == "I" or first == "o" or first == "O" or first == "u" or first == "U":
-                    split_words[i] = x + pyg
-                    i += 1
-                else:
-                    split_words[i] = spliced + first + pyg
-                    i += 1
-            else:
-                i += 1
+hexchat.hook_command("PYG", pyglatin_cb)
 
-        new_str = " ".join(split_words) # concatenation of split_words list with spaces between words
-        xchat.command("say %s" % (new_str)) # send translated text to server
-        return xchat.EAT_ALL
-
-xchat.hook_command("pyg", pyglatin)
+hexchat.prnt(__module_name__ + " version " + __module_version__ + " loaded")
