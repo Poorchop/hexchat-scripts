@@ -12,10 +12,10 @@ channels = []
 # Customize the name of the tab to your liking
 tab_name = "(Ads)"
 
-bwi_regex = re.compile("^(\[BWI\])\sType\s+\W[\w-]+\s+to\sget\sthe\slist\sof\s+[\d,]+\s+files\s\([\d\.]+\s+[A-Z]+\)\.\s+Updated\son\s+[\d+-]+\s+[\d:]+\.?\s+Total\sSent\(channel\):\s+[\d,]+\s+\([\d\.]+\s+[A-Z]+(\))$")
+bwi_regex          = re.compile("^(\[BWI\])\sType\s+\W[\w-]+\s+to\sget\sthe\slist\sof\s+[\d,]+\s+files\s\([\d\.]+\s+[A-Z]+\)\.\s+Updated\son\s+[\d+-]+\s+[\d:]+\.?\s+Total\sSent\(channel\):\s+[\d,]+\s+\([\d\.]+\s+[A-Z]+(\))$")
 irssi_fserve_regex = re.compile("^(\(FServe Online\))\s+Note:\(Type\s+\W[\w-]+\s+for\s+filelist\)\s+Trigger:\(/ctcp\s+.*?\)\s+On\s+FServe:\(.*?\)\s+Sends:\(")
-omenserve_regex = re.compile(".*?Type:\s+\W[\w-]+\s+For\sMy\sList\sOf:\s+[\d,]+\s+Files\s+.*?Slots:\s+\d+/\d+\s+.*?Queued:\s+\d+\s+.*?Speed:\s+[\d,]+cps\s+.*?Next:\s+\w+\s+.*?Served:\s+[\d,]+\s+.*?List:\s+[A-Z][a-z]+\s+\w+\s+.*?Search:\s+[A-Z]{2,3}\s+.*?Mode:\s+\w+\s+.*?$")
-unknown_one_regex = re.compile("^(Type)\s+\W[\w-]+\s+for\smy\slist\sof\s+\([\d,]+\)\s+Ebooks\screated\son\s+[\d-]+\s+([\d:]+)$")
+omenserve_regex    = re.compile(".*?Type:\s+\W[\w-]+\s+For\sMy\sList\sOf:\s+[\d,]+\s+Files\s+.*?Slots:\s+\d+/\d+\s+.*?Queued:\s+\d+\s+.*?Speed:\s+[\d,]+cps\s+.*?Next:\s+\w+\s+.*?Served:\s+[\d,]+\s+.*?List:\s+[A-Z][a-z]+\s+\w+\s+.*?Search:\s+[A-Z]{2,3}\s+.*?Mode:\s+\w+\s+.*?$")
+unknown_one_regex  = re.compile("^(Type)\s+\W[\w-]+\s+for\smy\slist\sof\s+\([\d,]+\)\s+Ebooks\screated\son\s+[\d-]+\s+([\d:]+)$")
 
 ad_lst = [bwi_regex, irssi_fserve_regex, omenserve_regex, unknown_one_regex]
 server_nicks = []
