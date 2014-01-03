@@ -2,7 +2,7 @@ import hexchat
 
 __module_name__ = "Join/Part Tab"
 __module_author__ = "PDog"
-__module_version__ = "1.5"
+__module_version__ = "1.6"
 __module_description__ = "Place join/part/quit messages in a separate tab for designated servers and/or channels"
 
 # customize tab name to your liking
@@ -112,19 +112,17 @@ def jpfilter_cb(word, word_eol, event):
 	if pref_check():
 		
 		if event == "Join":
-			jp_context.prnt("{0} \00323*\t{1} ({2}) has joined".format(channel, word[0], word[2]))
+			jp_context.prnt("{0} \00323*\t{1} ({3}) has joined".format(channel, *word))
 
 		elif event == "Part":
-			jp_context.prnt("{0} \00324*\t{1} ({2}) has left".format(channel, word[0], word[1]))
+			jp_context.prnt("{0} \00324*\t{1} ({2}) has left".format(channel, *word))
 			
 		elif event == "Part with Reason":
-			jp_context.prnt("{0} \00324*\t{1} ({2}) has left ({3})".format(channel, word[0], word[1], word[3]))
+			jp_context.prnt("{0} \00324*\t{1} ({2}) has left ({4})".format(channel, *word))
 
 		elif event == "Quit":
-			if len(word) > 2:
-				jp_context.prnt("{0} \00324*\t{1} has quit ({2})".format(channel, word[0], word[1]))
-			else:
-				jp_context.prnt("{0} \00324*\t{1} has quit ()".format(channel, word[0]))
+			word = [(word[i] if len(word) > i else "") for i in range(3)]
+			jp_context.prnt("{0} \00324*\t{1} has quit ({2})".format(channel, *word))
 
 		return hexchat.EAT_ALL
 
