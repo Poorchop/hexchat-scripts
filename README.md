@@ -5,11 +5,11 @@ Many of these scripts were made possible with help or with templates from
 [TingPing] (https://github.com/TingPing), [Farow] (https://github.com/Farow),
 [Arnavion] (https://github.com/Arnavion), [GermainZ] (https://github.com/GermainZ), and others.
 
-##### [random] (./random)
+#### [random] (./random)
 Clone of Arnavion's script repository. His Royal Highness requests that
 absolutely nobody contact him about these scripts for any reason whatsoever.
 
-##### [adfilter.py] (adfilter.py)
+#### [adfilter.py] (adfilter.py)
 Move common fserve advertisements to a separate tab	
 To those coming from mIRC, this is meant to to partially replicate the ad-related functionality of
 [DukeLupus's dlFilter script] (http://dukelupus.com/dlfilter).
@@ -18,14 +18,14 @@ To those coming from mIRC, this is meant to to partially replicate the ad-relate
 You only need to modify `channels = []` for this script to work.
 See the script comment if you need instructions on how to add a channel to the filter list.
 
-##### [follow.py] (follow.py)
+#### [follow.py] (follow.py)
 Format messages from specific users to make them easier to follow.
 
 *__Usage:__*	
 /follow &lt;nick&gt;	
 /unfollow &lt;nick&gt;
 
-##### [joinparttab.py] (joinparttab.py)
+#### [joinparttab.py] (joinparttab.py)
 This script aggregates all join, part, and quit mesages from a user-defined list of servers and/or channels and places them in a new tab.
 The name of the channel from where the join/part/quit event originated is displayed before each join/part/quit message.
 
@@ -58,10 +58,10 @@ If executed properly, you will see a message that the channel/network has been r
 **To view your current filters:**	
 * `/jptab list filters`
 
-##### [nick2server.py] (nick2server.py)
+#### [nick2server.py] (nick2server.py)
 Remove nick change messages from channels and place them in the server tab instead
 
-##### [pyglatin.py] (pyglatin.py)
+#### [pyglatin.py] (pyglatin.py)
 This script is based on the PygLatin Python exercise written by Kate Lockwood:
 * If a word begins with a vowel, "ay" is appended to the end of the word.
 * If a word instead begins with a consonant, the first letter of the word is moved to the end, and the result is appended with "ay".
@@ -69,7 +69,7 @@ This script is based on the PygLatin Python exercise written by Kate Lockwood:
 *__Usage:__*	
 /pyg &lt;message&gt;
 
-##### [requestfilter.py] (requestfilter.py)
+#### [requestfilter.py] (requestfilter.py)
 Move search requests (@find, @search, @seek, etc.) and fserve file requests to a separate tab	
 To those coming from mIRC, this is meant to to partially replicate the request-related functionality of
 [DukeLupus's dlFilter script] (http://dukelupus.com/dlfilter).	
@@ -80,14 +80,14 @@ but they can be used independently of each other.
 You only need to modify `channels = []` for this script to work.
 See the script comment if you need instructions on how to add a channel to the filter list.
 
-##### [shortnicks.py] (shortnicks.py)
+#### [shortnicks.py] (shortnicks.py)
 Automatically truncate nicknames beyond a user-defined length	
 Use [TingPing's twitch.py script] (https://github.com/TingPing/plugins/blob/master/HexChat/twitch.py) for a more comprehensive twitch experience.
 
 *__Usage:__*	
 See script comment for instructions
 
-##### [twitch-autoemote.py] (twitch-autoemote.py)
+#### [twitch-autoemote.py] (twitch-autoemote.py)
 Automatically formats twitch.tv emotes with proper capitalization
 
 *__Usage:__*	
