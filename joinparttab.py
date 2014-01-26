@@ -107,9 +107,9 @@ def pref_check():
 
 def jpfilter_cb(word, word_eol, event):
 	channel = hexchat.get_info("channel")
-	jp_context = find_jptab()
 	
 	if pref_check():
+		jp_context = find_jptab()
 		
 		if event == "Join":
 			jp_context.prnt("{0} \00323*\t{1} ({3}) has joined".format(channel, *word))
@@ -136,7 +136,7 @@ def unload_callback(userdata):
         if chan.type == 1 and chan.channel == tab_name:
             jp_context = hexchat.find_context(channel=tab_name)
             jp_context.command("CLOSE")
-    hexchat.prnt(__module_name__ + " version " + __module_version__ + " unloaded.")
+    hexchat.prnt(__module_name__ + " version " + __module_version__ + " unloaded")
 
 hexchat.hook_command("jptab", jptab_pref, help="Filter joins/parts/quits for a network or channel:\n \
 \t   /jptab [add|remove] [network|channel]\n \
@@ -146,6 +146,5 @@ for event in ("Join", "Part", "Part with Reason", "Quit"):
 	hexchat.hook_print(event, jpfilter_cb, event)
 hexchat.hook_unload(unload_callback)
 load_jpfilters()
-find_jptab()
 
 hexchat.prnt(__module_name__ + " version " + __module_version__ + " loaded")
