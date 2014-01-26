@@ -14,14 +14,14 @@ Move common fserve advertisements to a separate tab
 To those coming from mIRC, this is meant to to partially replicate the ad-related functionality of
 [DukeLupus's dlFilter script] (http://dukelupus.com/dlfilter).
 
-Usage:	
+__Usage:__	
 You only need to modify `channels = []` for this script to work.
 See the script comment if you need instructions on how to add a channel to the filter list.
 
 ##### [follow.py] (follow.py)
 Format messages from specific users to make them easier to follow.
 
-Usage:	
+__Usage:__	
 /follow &lt;nick&gt;	
 /unfollow &lt;nick&gt;
 
@@ -29,7 +29,7 @@ Usage:
 This script aggregates all join, part, and quit mesages from a user-defined list of servers and/or channels and places them in a new tab.
 The name of the channel from where the join/part/quit event originated is displayed before each join/part/quit message.
 
-Usage:
+__Usage:__	
 You can customize the name of the filter tab by setting `tab_name = ""` to whatever you like.
 Place your desired name between the quotes. You can view the available commands for this script by typing `/help jptab`.
 
@@ -66,7 +66,7 @@ This script is based on the PygLatin Python exercise written by Kate Lockwood:
 * If a word begins with a vowel, "ay" is appended to the end of the word.
 * If a word instead begins with a consonant, the first letter of the word is moved to the end, and the result is appended with "ay".
 
-Usage:	
+__Usage:__	
 /pyg &lt;message&gt;
 
 ##### [requestfilter.py] (requestfilter.py)
@@ -76,7 +76,7 @@ To those coming from mIRC, this is meant to to partially replicate the request-r
 This script is meant to complement [adfilter.py] (https://github.com/PoorDog/hexchat-scripts/tree/master/adfilter),
 but they can be used independently of each other.
 
-Usage:	
+__Usage:__	
 You only need to modify `channels = []` for this script to work.
 See the script comment if you need instructions on how to add a channel to the filter list.
 
@@ -84,13 +84,13 @@ See the script comment if you need instructions on how to add a channel to the f
 Automatically truncate nicknames beyond a user-defined length	
 Use [TingPing's twitch.py script] (https://github.com/TingPing/plugins/blob/master/HexChat/twitch.py) for a more comprehensive twitch experience.
 
-Usage:	
+__Usage:__	
 See script comment for instructions
 
 ##### [twitch-autoemote.py] (twitch-autoemote.py)
 Automatically formats twitch.tv emotes with proper capitalization
 
-Usage:	
+__Usage:__	
 Emotes are automatically formatted only for text sent to channels on twitch.tv IRC.
 
 Example: "Hello kappa frankerz" is automatically converted to "Hello Kappa FrankerZ" after you send your message,
