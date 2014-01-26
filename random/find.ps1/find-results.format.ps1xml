@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+	<ViewDefinitions>
+		<View>
+			<Name>find-results</Name>
+			<ViewSelectedBy>
+				<TypeName>MatchResult</TypeName>
+			</ViewSelectedBy>
+			<GroupBy>
+				<PropertyName>File</PropertyName>
+			</GroupBy>
+			<TableControl>
+				<TableHeaders>
+				   <TableColumnHeader>
+					  <Label>Num</Label>
+					  <Width>5</Width>
+					  <Alignment>right</Alignment>
+				   </TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Line</Label>
+						<Alignment>left</Alignment>
+					</TableColumnHeader>
+				</TableHeaders>
+				<TableRowEntries>
+					<TableRowEntry>
+						<Wrap />
+						<TableColumnItems>
+							<TableColumnItem>
+								<ScriptBlock>
+									$_.LineNumber
+								</ScriptBlock>
+							</TableColumnItem>
+							<TableColumnItem>
+								<ScriptBlock>
+									$_.Line.Trim()
+								</ScriptBlock>
+							</TableColumnItem>
+						</TableColumnItems>
+					</TableRowEntry>
+				</TableRowEntries>
+			</TableControl>
+		</View>
+	</ViewDefinitions>
+</Configuration>

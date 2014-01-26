@@ -1,0 +1,12 @@
+diff -urpN tor-0.2.4.20.orig/src/or/or.h tor-0.2.4.20/src/or/or.h
+--- tor-0.2.4.20.orig/src/or/or.h	2013-12-22 21:35:55.000000000 -0800
++++ tor-0.2.4.20/src/or/or.h	2014-01-10 20:37:08.276107043 -0800
+@@ -4252,7 +4252,7 @@ struct socks_request_t {
+ /********************************* circuitbuild.c **********************/
+ 
+ /** How many hops does a general-purpose circuit have by default? */
+-#define DEFAULT_ROUTE_LEN 3
++#define DEFAULT_ROUTE_LEN 2
+ 
+ /* Circuit Build Timeout "public" structures. */
+ 
