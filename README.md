@@ -76,7 +76,8 @@ This script is based on the PygLatin Python exercise written by Kate Lockwood:
 /pyg &lt;message&gt;
 
 #### [requestfilter.py] (requestfilter.py)
-Move search requests (@find, @search, @seek, etc.) and fserve file requests to a separate tab	
+Move search requests (@find, @search, @seek, etc.) and fserve file requests to a separate tab
+
 To those coming from mIRC, this is meant to to partially replicate the request-related functionality of
 [DukeLupus's dlFilter script] (http://dukelupus.com/dlfilter).
 
