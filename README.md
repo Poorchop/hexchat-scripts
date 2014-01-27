@@ -8,6 +8,9 @@ Many of these scripts were made possible with help or with templates from
 #### [random] (./random)
 Clone of Arnavion's script repository. His Royal Highness requests that
 absolutely nobody contact him about these scripts for any reason whatsoever.
+I take no credit for any of these scripts and as the original repository did not
+include a license, their licensing is technically handled by the
+[GitHub Terms of Service] (https://help.github.com/articles/github-terms-of-service#f-copyright-and-content-ownership).
 
 #### [adfilter.py] (adfilter.py)
 Move common fserve advertisements to a separate tab	
