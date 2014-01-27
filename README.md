@@ -5,6 +5,8 @@ Many of these scripts were made possible with help or with templates from
 [TingPing] (https://github.com/TingPing), [Farow] (https://github.com/Farow),
 [Arnavion] (https://github.com/Arnavion), [GermainZ] (https://github.com/GermainZ), and others.
 
+***
+
 #### [random] (./random)
 Clone of Arnavion's script repository. His Royal Highness requests that
 absolutely nobody contact him about these scripts for any reason whatsoever.
@@ -13,7 +15,8 @@ include a license, their licensing is technically handled by the
 [GitHub Terms of Service] (https://help.github.com/articles/github-terms-of-service#f-copyright-and-content-ownership).
 
 #### [adfilter.py] (adfilter.py)
-Move common fserve advertisements to a separate tab	
+Move common fserve advertisements to a separate tab
+
 To those coming from mIRC, this is meant to to partially replicate the ad-related functionality of
 [DukeLupus's dlFilter script] (http://dukelupus.com/dlfilter).
 
@@ -75,7 +78,8 @@ This script is based on the PygLatin Python exercise written by Kate Lockwood:
 #### [requestfilter.py] (requestfilter.py)
 Move search requests (@find, @search, @seek, etc.) and fserve file requests to a separate tab	
 To those coming from mIRC, this is meant to to partially replicate the request-related functionality of
-[DukeLupus's dlFilter script] (http://dukelupus.com/dlfilter).	
+[DukeLupus's dlFilter script] (http://dukelupus.com/dlfilter).
+
 This script is meant to complement [adfilter.py] (https://github.com/PoorDog/hexchat-scripts/tree/master/adfilter),
 but they can be used independently of each other.
 
@@ -84,14 +88,16 @@ You only need to modify `channels = []` for this script to work.
 See the script comment if you need instructions on how to add a channel to the filter list.
 
 #### [shortnicks.py] (shortnicks.py)
-Automatically truncate nicknames beyond a user-defined length	
-Use [TingPing's twitch.py script] (https://github.com/TingPing/plugins/blob/master/HexChat/twitch.py) for a more comprehensive twitch experience.
+Automatically truncate nicknames beyond a user-defined length
 
 *__Usage:__*	
 See script comment for instructions
 
 #### [twitch-autoemote.py] (twitch-autoemote.py)
 Automatically formats twitch.tv emotes with proper capitalization
+
+Use [TingPing's twitch.py script] (https://github.com/TingPing/plugins/blob/master/HexChat/twitch.py)
+for a more comprehensive Twitch experience.
 
 *__Usage:__*	
 Emotes are automatically formatted only for text sent to channels on twitch.tv IRC.
