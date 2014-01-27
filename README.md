@@ -81,7 +81,7 @@ Move search requests (@find, @search, @seek, etc.) and fserve file requests to a
 To those coming from mIRC, this is meant to to partially replicate the request-related functionality of
 [DukeLupus's dlFilter script] (http://dukelupus.com/dlfilter).
 
-This script is meant to complement [adfilter.py] (https://github.com/PoorDog/hexchat-scripts/tree/master/adfilter),
+This script is meant to complement [adfilter.py] (adfilter.py),
 but they can be used independently of each other.
 
 *__Usage:__*	
