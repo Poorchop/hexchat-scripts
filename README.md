@@ -117,8 +117,6 @@ To view a list of emotes, including those for the current session, enter the fol
 
     /twitch emotes
 
-***
-
 ### Installation:
 Place "script.py" in your HexChat addons folder:
 
