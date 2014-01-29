@@ -7,7 +7,7 @@ Many of these scripts were made possible with help or with templates from
 
 ***
 
-#### [random] (./random)
+#### [Arnavion-scripts] (./Arnavion-scripts)
 Clone of Arnavion's script repository. His Royal Highness requests that
 absolutely nobody contact him about these scripts for any reason whatsoever.
 I take no credit for any of these scripts and as the original repository did not
