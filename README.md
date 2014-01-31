@@ -24,6 +24,11 @@ To those coming from mIRC, this is meant to to partially replicate the ad-relate
 You only need to modify `channels = []` for this script to work.
 See the script comment if you need instructions on how to add a channel to the filter list.
 
+#### [ddc-spam.py] (dcc-spam.py)
+*Untested*: This script should theoretically detect DCC spammers and automatically add them to ignore.
+Since I haven't tested it, expect things to be broken. Currently, it only ignores people trying to
+repeatedly send the same file within a five second period.
+
 #### [follow.py] (follow.py)
 Format messages from specific users to make them easier to follow.
 
@@ -143,6 +148,7 @@ Here are some links in addition to Farow's:
 (see [my fork] (https://github.com/PoorDog/xchat-scripts/blob/master/get-youtube-video-info.py) for Python 3 support)
 * [GermainZ] (https://github.com/GermainZ/HexChat-Scripts)
 * [iceTwy] (https://github.com/iceTwy/xchat-deadbeef)
+* [logicplace] (https://github.com/logicplace/xchat-plugins)
 * [Phr33d0m] (https://github.com/Phr33d0m/Random)
 * [Wardje] (https://github.com/Wardje/xchat-scripts)
 
