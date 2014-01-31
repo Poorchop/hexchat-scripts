@@ -140,6 +140,7 @@ Here are some links in addition to Farow's:
 * [ChaozZBubi] (https://github.com/ChaozZBubi/tools)
 * [Chuong Ngo] (https://github.com/cngo-github/xchat-translator)
 * [demialucard] (https://github.com/demialucard/xchat-scripts)
+(see [my fork] (https://github.com/PoorDog/xchat-scripts/blob/master/get-youtube-video-info.py) for Python 3 support)
 * [GermainZ] (https://github.com/GermainZ/HexChat-Scripts)
 * [iceTwy] (https://github.com/iceTwy/xchat-deadbeef)
 * [Phr33d0m] (https://github.com/Phr33d0m/Random)
