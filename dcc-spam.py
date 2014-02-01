@@ -17,7 +17,7 @@ def dcc_spam_cb(word, word_eol, userdata):
 		time_two = dcc_senders[sender + "_two"]
 		
 		if time_two + datetime.timedelta(seconds=-5) <= time_one:
-			hexchat.command("IGNORE {0}".format(word[0]))
+			hexchat.command("IGNORE {0}!*@*".format(word[0]))
 			hexchat.prnt("-\00322\002DCC-spam\002\00399-\t\002{0}\002 has been added to ignore".format(word[0]))
 			del dcc_senders[sender + "_one"]
 			del dcc_senders[sender + "_two"]
