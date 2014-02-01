@@ -72,6 +72,8 @@ If executed properly, you will see a message that the channel/network has been r
 #### [nick2server.py] (nick2server.py)
 Remove nick change messages from channels and place them in the server tab instead
 
+Inspired by notice2server.pl from the legendary [Farow] (https://github.com/Farow)
+
 #### [pyglatin.py] (pyglatin.py)
 This script is based on the PygLatin Python exercise written by Kate Lockwood:
 * If a word begins with a vowel, "ay" is appended to the end of the word.
