@@ -24,7 +24,7 @@ To those coming from mIRC, this is meant to to partially replicate the ad-relate
 You only need to modify `channels = []` for this script to work.
 See the script comment if you need instructions on how to add a channel to the filter list.
 
-#### [ddc-spam.py] (dcc-spam.py)
+#### [dcc-spam.py] (dcc-spam.py)
 *Untested*: This script should theoretically detect DCC spammers and automatically add them to ignore.
 Since I haven't tested it, expect things to be broken. Currently, it only ignores people trying to
 repeatedly send the same file within a five second period.
