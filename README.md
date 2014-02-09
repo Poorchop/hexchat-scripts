@@ -36,6 +36,16 @@ Format messages from specific users to make them easier to follow.
 /follow &lt;nick&gt;	
 /unfollow &lt;nick&gt;
 
+#### [hexchat-livestreamer.py] (hexchat-livestreamer.py)
+Automatically launch a Twitch.TV stream via Livestreamer when the corresponding channel is joined in HexChat.
+[Livestreamer] (http://livestreamer.tanuki.se/) must be installed for this script to work correctly.
+
+*__Usage:__*
+Follow the [guide] (http://help.twitch.tv/customer/portal/articles/1302780-twitch-irc#Hexchat%20Guide) for connecting
+to Twitch chat with HexChat, then join a channel to launch the corresponding stream with Livestreamer.
+
+You can alternately type `/livestreamer <#channel> <quality>` to manually launch a stream.
+
 #### [joinparttab.py] (joinparttab.py)
 This script aggregates all join, part, and quit mesages from a user-defined list of servers and/or channels and places them in a new tab.
 The name of the channel from where the join/part/quit event originated is displayed before each join/part/quit message.
