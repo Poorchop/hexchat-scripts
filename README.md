@@ -30,7 +30,7 @@ Since I haven't tested it, expect things to be broken. Currently, it only ignore
 repeatedly send the same file within a five second period.
 
 #### [follow.py] (follow.py)
-Format messages from specific users to make them easier to follow.
+Format messages from specific users to make them easier to follow
 
 *__Usage:__*	
 /follow &lt;nick&gt;	
@@ -40,7 +40,7 @@ Format messages from specific users to make them easier to follow.
 Automatically launch a Twitch.TV stream via Livestreamer when the corresponding channel is joined in HexChat.
 [Livestreamer] (http://livestreamer.tanuki.se/) must be installed for this script to work correctly.
 
-*__Usage:__*
+*__Usage:__*	
 Follow the [guide] (http://help.twitch.tv/customer/portal/articles/1302780-twitch-irc#Hexchat%20Guide) for connecting
 to Twitch chat with HexChat, then join a channel to launch the corresponding stream with Livestreamer.
 
