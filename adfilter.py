@@ -3,7 +3,7 @@ import re
 
 __module_name__ = "AdFilter"
 __module_author__ = "PDog"
-__module_version__ = "0.3"
+__module_version__ = "0.4"
 __module_description__ = "Move fserve advertisements to a separate tab"
 
 # Add channels from which you would like to filter ads, e.g. channels = ["#freenode", "#defocus", "##linux"]
@@ -19,9 +19,13 @@ ns_fserve_regex    = re.compile("^(Type)\s+\W.*?for\smy\stiny\slist.*?[\d,]+\s+b
 omenserve_regex    = re.compile(".*?Type:\s+\W[\w-]+\s+For\sMy\sList\sOf:\s+[\d,]+\s+Files\s+.*?Slots:\s+\d+/\d+\s+.*?Queued:\s+\d+\s+.*?Speed:\s+[\d,]+cps\s+.*?Next:\s+\w+\s+.*?Served:\s+[\d,]+\s+.*?List:\s+[A-Z][a-z]+\s+\w+\s+.*?Search:\s+[A-Z]{2,3}\s+.*?Mode:\s+\w+\s+.*?$")
 os_limits_regex    = re.compile("^(\s+)?(Sent:)\s+.*?To:\s+.*?Total\s+Sent:\s+[\d,]+\s+Files.*?Yesterday:\s[\d,]+\s+Files.*?Today.*?:\s+[\d,]+\s+Files.*?OS-Limits\s+(v[\d\.]+)$")
 single_file_regex  = re.compile("^(\s+)?Type:\s+\W[\w-]+.*?To\sGet\sThis\s+.*?(File|MP3)$")
-unknown_one_regex  = re.compile("^(Type)\s+\W[\w-]+\s+for\smy\slist\sof\s+\([\d,]+\)\s+Ebooks\screated\son\s+[\d-]+\s+([\d:]+)$")
+unknown_1_regex    = re.compile("^(Type)\s+\W[\w-]+\s+for\smy\slist\sof\s+\([\d,]+\)\s+Ebooks\screated\son\s+[\d-]+\s+([\d:]+)$")
+unknown_2_regex    = re.compile("^(\s*((\(\)\(\)\()|(<><><)))\s+.*?\s+(((\)\(\)\(\))|(><><>))\s*)$")
+unknown_3_regex    = re.compile(".*?For\sMy\sList.*?\([\d\w:]+\)\sand\sDCC\sStatus,\stype\s[@\d\w-]+\sand\s[@\d\w-]+\.\s.*?Slots.*?Ques\sTaken.*?Next\sSend:.*?CPS\sin\sUse:.*?Highest\sCps\sRecord:.*?Total\sFile\sServed:.*?")
 
-ad_lst = [bwi_regex, irssi_fserve_regex, iterati_regex, ns_fserve_regex, omenserve_regex, os_limits_regex, single_file_regex, unknown_one_regex]
+ad_lst = [bwi_regex, irssi_fserve_regex, iterati_regex, ns_fserve_regex,
+          omenserve_regex, os_limits_regex, single_file_regex, unknown_1_regex,
+          unknown_2_regex, unknown_3_regex]
 server_nicks = []
 
 moved = False
@@ -35,16 +39,14 @@ def find_adtab():
 		return context
 		
 def adfilter_cb(word, word_eol, userdata):
-
-	word = [(word[i] if len(word) > i else "") for i in range(4)]
-
+        word = [(word[i] if len(word) > i else "") for i in range(4)]
+        
 	global server_nicks
 	channel = hexchat.get_info("channel")
 	stripped_msg = hexchat.strip(word[1], -1, 3)
 	
 	for ad in ad_lst:
-		if ad.match(stripped_msg) and channel in channels:
-		
+		if ad.match(stripped_msg) and channel in channels:		
 			if word[0] not in server_nicks:
 				server_nicks.append(word[0])
 				
@@ -58,7 +60,7 @@ def ctcpfilter_cb(word, word_eol, userdata):
 	if moved:
 		return
 	
-	if (word[0][:5] == "SLOTS" or word[1] in server_nicks) and word[2] in channels:
+	if word[0][:5] == "SLOTS" or word[0][:3] == "MP3" or word[1] in server_nicks and word[2] in channels:
 		ad_context = find_adtab()
 		
 		moved = True
@@ -74,7 +76,7 @@ def unload_cb(userdata):
 			ad_context.command("CLOSE")
 	hexchat.prnt(__module_name__ + " version " + __module_version__ + " unloaded")
 
-hexchat.hook_print("Channel Message", adfilter_cb)
+hexchat.hook_print("Channel Message", adfilter_cb, priority=hexchat.PRI_HIGH)
 hexchat.hook_print("CTCP Generic to Channel", ctcpfilter_cb)
 hexchat.hook_unload(unload_cb)
 
