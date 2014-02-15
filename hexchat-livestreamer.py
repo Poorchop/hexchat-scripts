@@ -2,12 +2,12 @@ import hexchat
 
 __module_name__ = "HexChat Livestreamer"
 __module_author__ = "PDog"
-__module_version__ = "0.1"
-__module_description__ = "Launch a Twitch.TV stream via Livestreamer when the corresponding channel is joined in HexChat"
+__module_version__ = "0.2"
+__module_description__ = "Launch a TwitchTV stream via Livestreamer when the corresponding channel is joined in HexChat"
 
 def is_twitch():
-    server = hexchat.get_info("server")
-    if "twitch.tv" in server:
+    server = hexchat.get_info("host")
+    if server and "twitch.tv" in server:
         return True
     else:
         return False
