@@ -118,21 +118,11 @@ Use [TingPing's twitch.py script] (https://github.com/TingPing/plugins/blob/mast
 for a more comprehensive Twitch experience.
 
 *__Usage:__*	
-Emotes are automatically formatted only for text sent to channels on twitch.tv IRC.
+Emotes are automatically formatted only for text sent to channels on TwitchTV IRC.
+All you need to do is type your message; no proper capitalization necessary.
 
 Example: "Hello kappa frankerz" is automatically converted to "Hello Kappa FrankerZ" after you send your message,
 and the corresponding emotes are displayed in the web chat.
-
-You can add emotes for the current session via the following line:
-
-    /twitch add <alias> <emote>
-    
-For example, by doing "/twitch add newemote NewEmote", "newemote" will be automatically formatted to "NewEmote" for your current session.
-If you want your emotes to persist across sessions, you must manually edit the script.
-
-To view a list of emotes, including those for the current session, enter the follow line:
-
-    /twitch emotes
 
 ### Installation:
 Place "script.py" in your HexChat addons folder:
