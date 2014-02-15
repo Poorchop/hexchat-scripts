@@ -118,11 +118,11 @@ Use [TingPing's twitch.py script] (https://github.com/TingPing/plugins/blob/mast
 for a more comprehensive Twitch experience.
 
 *__Usage:__*	
-Emotes are automatically formatted only for text sent to channels on TwitchTV IRC.
-All you need to do is type your message; proper capitalization isn't necessary.
+Emotes are formatted with proper capitalization as you type.
+This only modifies your text when a Twitch IRC channel is in focus.
+Therefore, this script is essentially a twitch-specific auto-replace tool.
 
-Example: "Hello kappa frankerz" is automatically converted to "Hello Kappa FrankerZ" after you send your message,
-and the corresponding emotes are displayed in the web chat.
+Example: "Hello kappa frankerz" is automatically converted to "Hello Kappa FrankerZ" as you type.
 
 ### Installation:
 Place "script.py" in your HexChat addons folder:
