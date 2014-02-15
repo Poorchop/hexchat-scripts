@@ -2,7 +2,7 @@ import hexchat
 
 __module_name__ = "Twitch Emote Autoformat"
 __module_author__ = "PDog"
-__module_version__ = "0.4"
+__module_version__ = "0.5"
 __module_description__ = "Automatically format twitch.tv emote names with proper capitalization"
 
 # emote names taken from: http://twitchemotes.com/
@@ -90,8 +90,6 @@ emote_dict = {'4head' : '4Head',
               'wholewheat' : 'WholeWheat', 
               'winwaker' : 'WinWaker'}
 
-moved = False
-
 def is_twitch():
     if "twitch.tv" in hexchat.get_info("host"):
         return True
@@ -99,24 +97,20 @@ def is_twitch():
         return False
     
 def emote_cb(word, word_eol, userdata):
-    global moved
-
-    if moved:
-        return
-
     if is_twitch():
-        for w in word:
-            if w.lower() in emote_dict:
-                word[word.index(w)] = emote_dict[w.lower()]
+        msg = hexchat.get_info("inputbox")
 
-        new_msg = " ".join(word)
+        if msg:
+            split_words = msg.split(" ")
+        
+            for w in split_words:
+                if w.lower() in emote_dict:
+                    split_words[split_words.index(w)] = emote_dict[w.lower()]
 
-        moved = True
-        hexchat.command("SAY {0}".format(new_msg))
-        moved = False
+            new_msg = " ".join(split_words)
+            hexchat.command("SETTEXT {}".format(new_msg))
+            hexchat.command("SETCURSOR {}".format(len(new_msg)))
 
-        return hexchat.EAT_ALL
-
-hexchat.hook_command("", emote_cb, priority=hexchat.PRI_HIGH)
+hexchat.hook_print("Key Press", emote_cb, priority=hexchat.PRI_HIGH)
 
 hexchat.prnt(__module_name__ + " version " + __module_version__ + " loaded")
