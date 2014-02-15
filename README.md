@@ -112,14 +112,14 @@ Automatically truncate nicknames beyond a user-defined length
 See script comment for instructions
 
 #### [twitch-autoemote.py] (twitch-autoemote.py)
-Automatically formats twitch.tv emotes with proper capitalization
+Automatically formats TwitchTV emotes with proper capitalization
 
 Use [TingPing's twitch.py script] (https://github.com/TingPing/plugins/blob/master/HexChat/twitch.py)
 for a more comprehensive Twitch experience.
 
 *__Usage:__*	
 Emotes are automatically formatted only for text sent to channels on TwitchTV IRC.
-All you need to do is type your message; no proper capitalization necessary.
+All you need to do is type your message; proper capitalization isn't necessary.
 
 Example: "Hello kappa frankerz" is automatically converted to "Hello Kappa FrankerZ" after you send your message,
 and the corresponding emotes are displayed in the web chat.
