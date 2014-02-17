@@ -12,7 +12,7 @@ channels = []
 # Customize the name of the tab to your liking
 tab_name = "(Requests)"
 
-request_regex = re.compile("^![\w\-\\\[\]{}^`|]+.*?\.([\w\d]{3,4}(\s+)?)$")
+request_regex = re.compile("^![\w\\\[\]{}^`|-]+.*?\.([\w\d]{3,4}(\s+)?)$")
 search_words = ["@find", "@new", "@search", "@seek"]
 search_nicks = []
 
