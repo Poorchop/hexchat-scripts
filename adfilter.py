@@ -12,16 +12,16 @@ channels = []
 # Customize the name of the tab to your liking
 tab_name = "(Ads)"
 
-bwi_regex          = re.compile("^(\[BWI\])\sType\s+\W[\w\-\\\[\]{}^`|]+\s+to\sget\sthe\slist\sof\s+[\d,]+\s+files\s\([\d\.]+\s+[A-Z]+\)\.\s+Updated\son\s+[\d+-]+\s+[\d:]+\.?\s+Total\sSent\(channel\):\s+[\d,]+\s+\([\d\.]+\s+[A-Z]+(\))$")
-irssi_fserve_regex = re.compile("^(\(FServe Online\))\s+Note:\(Type\s+\W[\w\-\\\[\]{}^`|]+\s+for\s+filelist\)\s+Trigger:\(/ctcp\s+.*?\)\s+On\s+FServe:\(.*?\)\s+Sends:\(")
-iterati_regex      = re.compile(".*?Type\s+\W[\w\-\\\[\]{}^`|]+\s+to\sget\smy\slist(\s|\.)?.*?\s+(Upd|(C|c)re)ated\son\s+[SMTWF][a-z]{2}\s+[A-Z][a-z]+\s+[\d\s:]+(\.).*?")
+bwi_regex          = re.compile("^(\[BWI\])\sType\s+\W[\w\\\[\]{}^`|-]+\s+to\sget\sthe\slist\sof\s+[\d,]+\s+files\s\([\d\.]+\s+[A-Z]+\)\.\s+Updated\son\s+[\d+-]+\s+[\d:]+\.?\s+Total\sSent\(channel\):\s+[\d,]+\s+\([\d\.]+\s+[A-Z]+(\))$")
+irssi_fserve_regex = re.compile("^(\(FServe Online\))\s+Note:\(Type\s+\W[\w\\\[\]{}^`|-]+\s+for\s+filelist\)\s+Trigger:\(/ctcp\s+.*?\)\s+On\s+FServe:\(.*?\)\s+Sends:\(")
+iterati_regex      = re.compile(".*?Type\s+\W[\w\\\[\]{}^`|-]+\s+to\sget\smy\slist(\s|\.)?.*?\s+(Upd|(C|c)re)ated\son\s+[SMTWF][a-z]{2}\s+[A-Z][a-z]+\s+[\d\s:]+(\.).*?")
 ns_fserve_regex    = re.compile("^(Type)\s+\W.*?for\smy\stiny\slist.*?[\d,]+\s+book(s)?\sadded\son\s+[\d\.]+\s+:\s+[\w\W]+")
-omenserve_regex    = re.compile(".*?Type:\s+\W[\w\-\\\[\]{}^`|]+\s+For\sMy\sList\sOf:\s+[\d,]+\s+Files\s+.*?Slots:\s+\d+/\d+\s+.*?Queued:\s+\d+\s+.*?Speed:\s+[\d,]+cps\s+.*?Next:\s+\w+\s+.*?Served:\s+[\d,]+\s+.*?List:\s+[A-Z][a-z]+\s+\w+\s+.*?Search:\s+[A-Z]{2,3}\s+.*?Mode:\s+\w+\s+.*?$")
+omenserve_regex    = re.compile(".*?Type:\s+\W[\w\\\[\]{}^`|-]+\s+For\sMy\sList\sOf:\s+[\d,]+\s+Files\s+.*?Slots:\s+\d+/\d+\s+.*?Queued:\s+\d+\s+.*?Speed:\s+[\d,]+cps\s+.*?Next:\s+\w+\s+.*?Served:\s+[\d,]+\s+.*?List:\s+[A-Z][a-z]+\s+\w+\s+.*?Search:\s+[A-Z]{2,3}\s+.*?Mode:\s+\w+\s+.*?$")
 os_limits_regex    = re.compile("^(\s+)?(Sent:)\s+.*?To:\s+.*?Total\s+Sent:\s+[\d,]+\s+Files.*?Yesterday:\s[\d,]+\s+Files.*?Today.*?:\s+[\d,]+\s+Files.*?OS-Limits\s+(v[\d\.]+)$")
-single_file_regex  = re.compile("^(\s+)?Type:\s+\W[\w\-\\\[\]{}^`|]+.*?To\sGet\sThis\s+.*?(File|MP3)$")
-unknown_1_regex    = re.compile("^(Type)\s+\W[\w\-\\\[\]{}^`|]+\s+for\smy\slist\sof\s+\([\d,]+\)\s+Ebooks\screated\son\s+[\d-]+\s+([\d:]+)$")
+single_file_regex  = re.compile("^(\s+)?Type:\s+\W[\w\\\[\]{}^`|-]+.*?To\sGet\sThis\s+.*?(File|MP3)$")
+unknown_1_regex    = re.compile("^(Type)\s+\W[\w\\\[\]{}^`|-]+\s+for\smy\slist\sof\s+\([\d,]+\)\s+Ebooks\screated\son\s+[\d-]+\s+([\d:]+)$")
 unknown_2_regex    = re.compile("^(\s*((\(\)\(\)\()|(<><><)))\s+.*?\s+(((\)\(\)\(\))|(><><>))\s*)$")
-unknown_3_regex    = re.compile(".*?For\sMy\sList.*?\([\w:]+\)\sand\sDCC\sStatus,\stype\s[@\w\-\\\[\]{}^`|]+\sand\s[@\w\-\\\[\]{}^`|]+\.\s.*?Slots.*?Ques\sTaken.*?Next\sSend:.*?CPS\sin\sUse:.*?Highest\sCps\sRecord:.*?Total\sFile\sServed:.*?")
+unknown_3_regex    = re.compile(".*?For\sMy\sList.*?\([\w:]+\)\sand\sDCC\sStatus,\stype\s[@\w\\\[\]{}^`|-]+\sand\s[@\w\\\[\]{}^`|-]+\.\s.*?Slots.*?Ques\sTaken.*?Next\sSend:.*?CPS\sin\sUse:.*?Highest\sCps\sRecord:.*?Total\sFile\sServed:.*?")
 
 ad_lst = [bwi_regex, irssi_fserve_regex, iterati_regex, ns_fserve_regex,
           omenserve_regex, os_limits_regex, single_file_regex, unknown_1_regex,
