@@ -87,7 +87,7 @@ Inspired by notice2server.pl from the legendary [Farow] (https://github.com/Faro
 #### [nickspy.py] (nickspy.py)
 Colorize a channel name in the channel tree when certain users speak in said channel
 
-*__Usage:__*
+*__Usage:__*	
 Add nicknames for spying on to `nicknames = []`. Nicknames should be in quotes and separated by commas:
 
 `nicknames = ["nick1", "nick2", "nick3"]`
