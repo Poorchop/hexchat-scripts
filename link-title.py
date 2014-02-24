@@ -16,7 +16,7 @@ except ImportError:
     hexchat.prnt("\002Link Title\002: Please install python-BeautifulSoup")
     hexchat.command("TIMER 0.1 PY UNLOAD {0}".format(__module_name__))
 
-# TODO: Add support for threading and test with Python 3 <PDog>
+# TODO: Add support for threading, handle encoding properly, and test with Python 3 <PDog>
 
 events = ("Channel Message", "Channel Action",
           "Channel Msg Hilight", "Channel Action Hilight")
@@ -47,7 +47,7 @@ def get_title(url):
 
         try:
             response = urlopen(req)
-            html_doc = response.read().decode("utf-8")
+            html_doc = response.read().decode("utf-8", "ignore")
             response.close()
             soup = BeautifulSoup(html_doc)
             msg = u"\0033\002::\003 Title\002 " + \
