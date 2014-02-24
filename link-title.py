@@ -1,33 +1,31 @@
 from urllib2 import Request, urlopen, HTTPError
 import glob
 import mimetypes
+import os
 import re
-import sys
 import hexchat
+
+__module_name__ = "Link Title"
+__module_author__ = "PDog"
+__module_version__ = "0.2"
+__module_description__ = "Display website title when a link is posted in chat"
+
 try:
     from BeautifulSoup import BeautifulSoup
 except ImportError:
     hexchat.prnt("\002Link Title\002: Please install python-BeautifulSoup")
-
-__module_name__ = "Link Title"
-__module_author__ = "PDog"
-__module_version__ = "0.1"
-__module_description__ = "Display website title when a link is posted in chat"
+    hexchat.command("TIMER 0.1 PY UNLOAD {0}".format(__module_name__))
 
 # TODO: Add support for threading and test with Python 3 <PDog>
 
-events = ["Channel Message", "Channel Action",
-          "Channel Msg Hilight", "Channel Action Hilight"]
+events = ("Channel Message", "Channel Action",
+          "Channel Msg Hilight", "Channel Action Hilight")
 
 def find_yt_script():
-    if sys.platform == "win32":
-        script = "\addons\get-youtube-video-info.py"
-    else:
-        script = "/addons/get-youtube-video-info.py"
+    script_path = os.path.join(hexchat.get_info("configdir"),
+                          "addons", "get-youtube-video-info.py")
 
-    path = hexchat.get_info("configdir") + script
-
-    if glob.glob(path):
+    if glob.glob(script_path):
         return re.compile("https?://(?!(w{3}\.)?youtu\.?be(\.|/))")
     else:
         return re.compile("https?://")
@@ -42,7 +40,9 @@ def mimetype(url):
         return mimetype[0]
 
 def get_title(url):
-    if mimetype(url) == "text" or not mimetype(url):
+    mtype = mimetype(url)
+    
+    if mtype == "text" or not mtype:
         req = Request(url)
 
         try:
