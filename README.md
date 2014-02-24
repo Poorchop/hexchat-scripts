@@ -79,6 +79,12 @@ If executed properly, you will see a message that the channel/network has been r
 **To view your current filters:**	
 * `/jptab list filters`
 
+#### [link-title.py] (link-title.py)
+Display website titles above links that are pasted in chat
+
+Plays nicely with [get-youtube-video-info.py] (https://github.com/demialucard/xchat-scripts/blob/master/get-youtube-video-info.py)
+(some message formatting also taken from that script)
+
 #### [nick2server.py] (nick2server.py)
 Remove nick change messages from channels and place them in the server tab instead
 
