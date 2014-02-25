@@ -1,13 +1,15 @@
 from urllib2 import Request, urlopen, HTTPError
+from HTMLParser import HTMLParser
 import glob
 import mimetypes
 import os
 import re
+import threading
 import hexchat
 
 __module_name__ = "Link Title"
 __module_author__ = "PDog"
-__module_version__ = "0.2"
+__module_version__ = "0.3"
 __module_description__ = "Display website title when a link is posted in chat"
 
 try:
@@ -16,7 +18,7 @@ except ImportError:
     hexchat.prnt("\002Link Title\002: Please install python-BeautifulSoup")
     hexchat.command("TIMER 0.1 PY UNLOAD {0}".format(__module_name__))
 
-# TODO: Add support for threading, handle encoding properly, and test with Python 3 <PDog>
+# TODO: Ignore punctuation (link lists), Python 3 compat, handle encoding properly <PDog>
 
 events = ("Channel Message", "Channel Action",
           "Channel Msg Hilight", "Channel Action Hilight")
@@ -39,7 +41,7 @@ def mimetype(url):
     else:
         return mimetype[0]
 
-def get_title(url):
+def get_title(url, chan):
     mtype = mimetype(url)
     
     if mtype == "text" or not mtype:
@@ -50,22 +52,26 @@ def get_title(url):
             html_doc = response.read().decode("utf-8", "ignore")
             response.close()
             soup = BeautifulSoup(html_doc)
+            title = HTMLParser().unescape(soup.title.string[:431])
             msg = u"\0033\002::\003 Title\002 " + \
-                  u"\0033\002::\003\002 {0}".format(soup.title.string)
+                  u"\0033\002::\003\002 {0}".format(title)
             msg = msg.encode("utf-8")
-            hexchat.prnt(msg)
+            # Weird context and timing issues with threading, hence:
+            hexchat.command("TIMER 0.1 DOAT {0} ECHO {1}".format(chan, msg))
         except HTTPError as e:
             msg = "\0033\002::\003 Title\002 " + \
                   "\0033\002::\003\002 {0}: {1}".format(str(e.code), e.reason)
             hexchat.prnt(msg)
 
 def event_cb(word, word_eol, userdata):
-    for w in word:
+    chan = hexchat.get_info("channel")
+    
+    for w in word[1].split(" "):
         stripped_word = hexchat.strip(w, -1, 3)
         
         if find_yt_script().match(stripped_word):
             url = stripped_word
-            get_title(url)
+            threading.Thread(target=get_title, args=(url, chan)).start()
 
     return hexchat.EAT_NONE
             
