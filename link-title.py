@@ -9,7 +9,7 @@ import hexchat
 
 __module_name__ = "Link Title"
 __module_author__ = "PDog"
-__module_version__ = "0.3"
+__module_version__ = "0.4"
 __module_description__ = "Display website title when a link is posted in chat"
 
 try:
@@ -18,14 +18,14 @@ except ImportError:
     hexchat.prnt("\002Link Title\002: Please install python-BeautifulSoup")
     hexchat.command("TIMER 0.1 PY UNLOAD {0}".format(__module_name__))
 
-# TODO: Ignore punctuation (link lists), Python 3 compat, handle encoding properly <PDog>
+# TODO: Deal with threading delay, Python 3 compat, handle encoding properly <PDog>
 
 events = ("Channel Message", "Channel Action",
           "Channel Msg Hilight", "Channel Action Hilight")
 
 def find_yt_script():
     script_path = os.path.join(hexchat.get_info("configdir"),
-                          "addons", "get-youtube-video-info.py")
+                               "addons", "get-youtube-video-info.py")
 
     if glob.glob(script_path):
         return re.compile("https?://(?!(w{3}\.)?youtu\.?be(\.|/))")
@@ -66,11 +66,15 @@ def get_title(url, chan):
 def event_cb(word, word_eol, userdata):
     chan = hexchat.get_info("channel")
     
-    for w in word[1].split(" "):
+    for w in word[1].split():
         stripped_word = hexchat.strip(w, -1, 3)
         
         if find_yt_script().match(stripped_word):
             url = stripped_word
+
+            if url.endswith(","):
+                url = url[:-1]
+                
             threading.Thread(target=get_title, args=(url, chan)).start()
 
     return hexchat.EAT_NONE
