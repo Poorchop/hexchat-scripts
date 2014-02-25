@@ -7,7 +7,7 @@ __module_version__ = "0.2"
 __module_description__ = "Move search and file requests to a separate tab"
 
 # Add channels from which you would like to filter requests, e.g. channels = ["#freenode", "#defocus", "##linux"]
-channels = ["#ebooks", "#bookz"]
+channels = []
 
 # Customize the name of the tab to your liking
 tab_name = "(Requests)"
