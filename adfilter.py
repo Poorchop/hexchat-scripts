@@ -1,5 +1,5 @@
-import hexchat
 import re
+import hexchat
 
 __module_name__ = "AdFilter"
 __module_author__ = "PDog"
@@ -7,7 +7,7 @@ __module_version__ = "0.4"
 __module_description__ = "Move fserve advertisements to a separate tab"
 
 # Add channels from which you would like to filter ads, e.g. channels = ["#freenode", "#defocus", "##linux"]
-channels = []
+channels = ["#bookz", "#ebooks", "#mp3^Oldies_But_Goodies"]
 
 # Customize the name of the tab to your liking
 tab_name = "(Ads)"
