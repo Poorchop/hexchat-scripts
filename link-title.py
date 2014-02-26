@@ -18,18 +18,6 @@ events = ("Channel Message", "Channel Action",
           "Private Message", "Private Message to Dialog",
           "Private Action", "Private Action to Dialog")
 
-mimetypes = ("text/cmd;", "text/cmd",
-             "text/css;", "text/css",
-             "text/csv;", "text/csv",
-             "text/html;", "text/html",
-             "text/javascript;", "text/javascript",
-             "text/plain;", "text/plain",
-             "text/rtf;", "text/rtf",
-             "text/vcard;", "text/vcard",
-             "text/xml;", "text/xml",
-             "text/example;", "text/example",
-             "text/vnd.abc;", "text/vnd.abc")
-
 def find_yt_script():
     script_path = os.path.join(hexchat.get_info("configdir"),
                                "addons", "get-youtube-video-info.py")
@@ -49,7 +37,7 @@ def snarfer(html_doc):
 def print_title(url, chan, nick, mode):
     try:
         r = requests.get(url)
-        if r.headers["content-type"].split()[0] in mimetypes:
+        if r.headers["content-type"].split("/")[0] == "text":
             html_doc = r.text.encode(r.encoding)
             title = snarfer(html_doc).decode(r.encoding)
             title = HTMLParser().unescape(title)
