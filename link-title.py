@@ -41,7 +41,7 @@ def get_title(url, chan, nick, mode):
     try:
         r = requests.get(url)
         if r.headers["content-type"].split()[0] in mimetypes:
-            chunk = r.iter_content(1024).next().decode("utf-8", "ignore")
+            chunk = r.iter_content(4096).next().decode(r.encoding)
             title = chunk[chunk.index("<title>")+7:chunk.index("</title>")][:431]
             title = HTMLParser().unescape(title)
             msg = u"\0033\002::\003 Title:\002 {0} " + \
@@ -49,7 +49,7 @@ def get_title(url, chan, nick, mode):
                   u"\0033\002::\003 Posted by:\002 {3}{2} " + \
                   u"\0033\002::\002"
             msg = msg.format(title, url, nick, mode)
-            msg = msg.encode("utf-8")
+            msg = msg.encode(r.encoding, "ignore")
             # Weird context and timing issues with threading, hence:
             hexchat.command("TIMER 0.1 DOAT {0} ECHO {1}".format(chan, msg))
     except requests.exceptions.RequestException as e:
