@@ -14,7 +14,9 @@ __module_description__ = "Display website title when a link is posted in chat"
 # TODO: Figure out what exception prints, deal with threading delay, Python 3 compat <PDog>
 
 events = ("Channel Message", "Channel Action",
-          "Channel Msg Hilight", "Channel Action Hilight")
+          "Channel Msg Hilight", "Channel Action Hilight",
+          "Private Message", "Private Message to Dialog",
+          "Private Action", "Private Action to Dialog")
 
 mimetypes = ("text/cmd;", "text/cmd",
              "text/css;", "text/css",
@@ -37,13 +39,19 @@ def find_yt_script():
     else:
         return re.compile("https?://")
 
-def get_title(url, chan, nick, mode):
+def snarfer(chunk):
+    try:
+        snarf = chunk[chunk.index("<title>")+7:chunk.index("</title>")]
+    except ValueError:
+        snarf = chunk[chunk.index("<title>")+7:431]
+    return snarf
+
+def print_title(url, chan, nick, mode):
     try:
         r = requests.get(url)
         if r.headers["content-type"].split()[0] in mimetypes:
             chunk = r.iter_content(4096).next().decode(r.encoding)
-            title = chunk[chunk.index("<title>")+7:chunk.index("</title>")][:431]
-            title = HTMLParser().unescape(title)
+            title = HTMLParser().unescape(snarfer(chunk))
             msg = u"\0033\002::\003 Title:\002 {0} " + \
                   u"\0033\002::\003 URL:\002 \00318\037{1}\017 " + \
                   u"\0033\002::\003 Posted by:\002 {3}{2} " + \
@@ -68,7 +76,7 @@ def event_cb(word, word_eol, userdata):
             if url.endswith(","):
                 url = url[:-1]
                 
-            threading.Thread(target=get_title, args=(url, chan, word[0], word[2])).start()
+            threading.Thread(target=print_title, args=(url, chan, word[0], word[2])).start()
 
     return hexchat.EAT_NONE
             
