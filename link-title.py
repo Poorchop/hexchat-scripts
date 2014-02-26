@@ -9,7 +9,7 @@ import hexchat
 
 __module_name__ = "Link Title"
 __module_author__ = "PDog"
-__module_version__ = "0.4"
+__module_version__ = "0.5"
 __module_description__ = "Display website title when a link is posted in chat"
 
 try:
@@ -41,7 +41,7 @@ def mimetype(url):
     else:
         return mimetype[0]
 
-def get_title(url, chan):
+def get_title(url, chan, nick):
     mtype = mimetype(url)
     
     if mtype == "text" or not mtype:
@@ -53,15 +53,21 @@ def get_title(url, chan):
             response.close()
             soup = BeautifulSoup(html_doc)
             title = HTMLParser().unescape(soup.title.string[:431])
-            msg = u"\0033\002::\003 Title\002 " + \
-                  u"\0033\002::\003\002 {0}".format(title)
+            msg = u"\0033\002::\003 Title:\002 {0} " + \
+                  u"\0033\002::\003 URL:\002 \00318\037{1}\017 " + \
+                  u"\0033\002::\003 Posted by:\002 {2} " + \
+                  u"\0033\002::\002"
+            msg = msg.format(title, url, nick)
             msg = msg.encode("utf-8")
             # Weird context and timing issues with threading, hence:
             hexchat.command("TIMER 0.1 DOAT {0} ECHO {1}".format(chan, msg))
         except HTTPError as e:
-            msg = "\0033\002::\003 Title\002 " + \
-                  "\0033\002::\003\002 {0}: {1}".format(str(e.code), e.reason)
-            hexchat.prnt(msg)
+            msg = "\0033\002::\003 Title:\002 {0}: {1} " + \
+                  "\0033\002::\003 URL:\002 \00318\037{2}\017 " + \
+                  "\0033\002::\003 Posted by:\002 {3} " + \
+                  "\0033\002::\002"
+            msg = msg.format(str(e.code), e.reason, url, nick)
+            hexchat.command("TIMER 0.1 DOAT {0} ECHO {1}".format(chan, msg))
 
 def event_cb(word, word_eol, userdata):
     chan = hexchat.get_info("channel")
@@ -75,7 +81,7 @@ def event_cb(word, word_eol, userdata):
             if url.endswith(","):
                 url = url[:-1]
                 
-            threading.Thread(target=get_title, args=(url, chan)).start()
+            threading.Thread(target=get_title, args=(url, chan, word[0])).start()
 
     return hexchat.EAT_NONE
             
