@@ -39,19 +39,20 @@ def find_yt_script():
     else:
         return re.compile("https?://")
 
-def snarfer(chunk):
+def snarfer(html_doc):
     try:
-        snarf = chunk[chunk.index("<title>")+7:chunk.index("</title>")]
+        snarf = html_doc[html_doc.index("<title>")+7:html_doc.index("</title>")][:431]
     except ValueError:
-        snarf = chunk[chunk.index("<title>")+7:431]
+        snarf = ""
     return snarf
 
 def print_title(url, chan, nick, mode):
     try:
         r = requests.get(url)
         if r.headers["content-type"].split()[0] in mimetypes:
-            chunk = r.iter_content(4096).next().decode(r.encoding)
-            title = HTMLParser().unescape(snarfer(chunk))
+            html_doc = r.text.encode(r.encoding)
+            title = snarfer(html_doc).decode(r.encoding)
+            title = HTMLParser().unescape(title)
             msg = u"\0033\002::\003 Title:\002 {0} " + \
                   u"\0033\002::\003 URL:\002 \00318\037{1}\017 " + \
                   u"\0033\002::\003 Posted by:\002 {3}{2} " + \
