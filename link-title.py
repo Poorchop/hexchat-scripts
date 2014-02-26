@@ -1,27 +1,32 @@
-from urllib2 import Request, urlopen, HTTPError
 from HTMLParser import HTMLParser
 import glob
-import mimetypes
 import os
 import re
+import requests
 import threading
 import hexchat
 
 __module_name__ = "Link Title"
 __module_author__ = "PDog"
-__module_version__ = "0.5"
+__module_version__ = "0.6"
 __module_description__ = "Display website title when a link is posted in chat"
 
-try:
-    from BeautifulSoup import BeautifulSoup
-except ImportError:
-    hexchat.prnt("\002Link Title\002: Please install python-BeautifulSoup")
-    hexchat.command("TIMER 0.1 PY UNLOAD {0}".format(__module_name__))
-
-# TODO: Deal with threading delay, Python 3 compat, handle encoding properly <PDog>
+# TODO: Figure out what exception prints, deal with threading delay, Python 3 compat <PDog>
 
 events = ("Channel Message", "Channel Action",
           "Channel Msg Hilight", "Channel Action Hilight")
+
+mimetypes = ("text/cmd;", "text/cmd",
+             "text/css;", "text/css",
+             "text/csv;", "text/csv",
+             "text/html;", "text/html",
+             "text/javascript;", "text/javascript",
+             "text/plain;", "text/plain",
+             "text/rtf;", "text/rtf",
+             "text/vcard;", "text/vcard",
+             "text/xml;", "text/xml",
+             "text/example;", "text/example",
+             "text/vnd.abc;", "text/vnd.abc")
 
 def find_yt_script():
     script_path = os.path.join(hexchat.get_info("configdir"),
@@ -32,44 +37,26 @@ def find_yt_script():
     else:
         return re.compile("https?://")
 
-def mimetype(url):
-    mimetype = mimetypes.guess_type(url)
-
-    if mimetype[0]:
-        split_type = mimetype[0].split("/")
-        return split_type[0]
-    else:
-        return mimetype[0]
-
-def get_title(url, chan, nick):
-    mtype = mimetype(url)
-    
-    if mtype == "text" or not mtype:
-        req = Request(url)
-
-        try:
-            response = urlopen(req)
-            html_doc = response.read().decode("utf-8", "ignore")
-            response.close()
-            soup = BeautifulSoup(html_doc)
-            title = HTMLParser().unescape(soup.title.string[:431])
+def get_title(url, chan, nick, mode):
+    try:
+        r = requests.get(url)
+        if r.headers["content-type"].split()[0] in mimetypes:
+            chunk = r.iter_content(1024).next().decode("utf-8", "ignore")
+            title = chunk[chunk.index("<title>")+7:chunk.index("</title>")][:431]
+            title = HTMLParser().unescape(title)
             msg = u"\0033\002::\003 Title:\002 {0} " + \
                   u"\0033\002::\003 URL:\002 \00318\037{1}\017 " + \
-                  u"\0033\002::\003 Posted by:\002 {2} " + \
+                  u"\0033\002::\003 Posted by:\002 {3}{2} " + \
                   u"\0033\002::\002"
-            msg = msg.format(title, url, nick)
+            msg = msg.format(title, url, nick, mode)
             msg = msg.encode("utf-8")
             # Weird context and timing issues with threading, hence:
             hexchat.command("TIMER 0.1 DOAT {0} ECHO {1}".format(chan, msg))
-        except HTTPError as e:
-            msg = "\0033\002::\003 Title:\002 {0}: {1} " + \
-                  "\0033\002::\003 URL:\002 \00318\037{2}\017 " + \
-                  "\0033\002::\003 Posted by:\002 {3} " + \
-                  "\0033\002::\002"
-            msg = msg.format(str(e.code), e.reason, url, nick)
-            hexchat.command("TIMER 0.1 DOAT {0} ECHO {1}".format(chan, msg))
+    except requests.exceptions.RequestException as e:
+        print(e)
 
 def event_cb(word, word_eol, userdata):
+    word = [(word[i] if len(word) > i else "") for i in range(4)]
     chan = hexchat.get_info("channel")
     
     for w in word[1].split():
@@ -81,7 +68,7 @@ def event_cb(word, word_eol, userdata):
             if url.endswith(","):
                 url = url[:-1]
                 
-            threading.Thread(target=get_title, args=(url, chan, word[0])).start()
+            threading.Thread(target=get_title, args=(url, chan, word[0], word[2])).start()
 
     return hexchat.EAT_NONE
             
