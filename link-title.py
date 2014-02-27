@@ -11,7 +11,7 @@ __module_author__ = "PDog"
 __module_version__ = "0.6"
 __module_description__ = "Display website title when a link is posted in chat"
 
-# TODO: Figure out what exception prints, deal with threading delay, Python 3 compat <PDog>
+# TODO: Possible memory leak, figure out what exception prints, Python 3 compat <PDog>
 
 events = ("Channel Message", "Channel Action",
           "Channel Msg Hilight", "Channel Action Hilight",
@@ -36,9 +36,10 @@ def snarfer(html_doc):
 
 def print_title(url, chan, nick, mode):
     try:
-        r = requests.get(url)
+        r = requests.get(url, verify=False)
         if r.headers["content-type"].split("/")[0] == "text":
             html_doc = r.text.encode(r.encoding)
+            r.close()
             title = snarfer(html_doc).decode(r.encoding)
             title = HTMLParser().unescape(title)
             msg = u"\0033\002::\003 Title:\002 {0} " + \
@@ -52,7 +53,11 @@ def print_title(url, chan, nick, mode):
     except requests.exceptions.RequestException as e:
         print(e)
 
-def event_cb(word, word_eol, userdata):
+def event_cb(word, word_eol, userdata, attr):
+    # ignore znc playback
+    if attr.time:
+        return
+    
     word = [(word[i] if len(word) > i else "") for i in range(4)]
     chan = hexchat.get_info("channel")
     
@@ -71,6 +76,6 @@ def event_cb(word, word_eol, userdata):
             
 
 for event in events:
-    hexchat.hook_print(event, event_cb)
+    hexchat.hook_print_attrs(event, event_cb)
 
 hexchat.prnt(__module_name__ + " version " + __module_version__ + " loaded")
