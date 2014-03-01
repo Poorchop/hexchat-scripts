@@ -1,9 +1,16 @@
+# coding=utf-8
+
 import hexchat
 
 __module_name__ = "Twitch Emote Autoformat"
 __module_author__ = "PDog"
-__module_version__ = "0.5"
+__module_version__ = "0.6"
 __module_description__ = "Automatically format twitch.tv emote names with proper capitalization"
+
+events = ("Channel Message", "Channel Msg Hilight",
+          "Channel Action", "Channel Action Hilight",
+          "Your Message")
+edited = False
 
 # emote names taken from: http://twitchemotes.com/
 # list last updated Sept 20, 2013
@@ -96,7 +103,14 @@ def is_twitch():
     else: 
         return False
     
-def emote_cb(word, word_eol, userdata):
+def keypress_cb(word, word_eol, userdata):
+    key = word[0]
+    mod = word[1]
+
+    #                  a    ctrl          backspace
+    if (key, mod) == ("97", "4") or key == "65288":
+        return
+
     if is_twitch():
         msg = hexchat.get_info("inputbox")
 
@@ -111,6 +125,28 @@ def emote_cb(word, word_eol, userdata):
             hexchat.command("SETTEXT {}".format(new_msg))
             hexchat.command("SETCURSOR {}".format(len(new_msg)))
 
-hexchat.hook_print("Key Press", emote_cb, priority=hexchat.PRI_HIGH)
+def emote_cb(word, word_eol, event):
+    word = [(word[i] if len(word) > i else "") for i in range(4)]
+    global edited
+
+    if edited:
+        return
+
+    if is_twitch():
+        word[1] = word[1] \
+            .replace("BionicBunion", "😺 ") \
+            .replace("FrankerZ", "🐶 ") \
+            .replace("Kappa", "😏") \
+            .replace("KZskull", "💀 ")
+
+        edited = True
+        hexchat.emit_print(event, *word)
+        edited = False
+
+        return hexchat.EAT_ALL
+
+hexchat.hook_print("Key Press", keypress_cb)
+for event in events:
+    hexchat.hook_print(event, emote_cb, event, priority=hexchat.PRI_HIGH)
 
 hexchat.prnt(__module_name__ + " version " + __module_version__ + " loaded")

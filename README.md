@@ -133,10 +133,14 @@ for a more comprehensive Twitch experience.
 
 *__Usage:__*	
 Emotes are formatted with proper capitalization as you type.
-This only modifies your text when a Twitch IRC channel is in focus.
+This only modifies your text when a TwitchTV IRC channel is in focus.
 Therefore, this script is essentially a twitch-specific auto-replace tool.
 
+This script also replaces a few emotes with similar unicode characters.
+
 Example: "Hello kappa frankerz" is automatically converted to "Hello Kappa FrankerZ" as you type.
+This message would subsequently appear to you as "Hello 😏 🐶 " whether it was typed by you
+or by anyone else in the channel.
 
 ### Installation:
 Place "script.py" in your HexChat addons folder:
