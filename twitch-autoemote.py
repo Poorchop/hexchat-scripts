@@ -134,10 +134,21 @@ def emote_cb(word, word_eol, event):
 
     if is_twitch():
         word[1] = word[1] \
-            .replace("BionicBunion", "😺 ") \
-            .replace("FrankerZ", "🐶 ") \
+            .replace(":)", "☺") \
+            .replace(":(", "☹") \
+            .replace(":z", "😴") \
+            .replace("B)", "😎") \
+            .replace(";)", "😉") \
+            .replace(";p", "😜") \
+            .replace(":p", "😛") \
+            .replace(":D", "😄") \
+            .replace(">(", "😠") \
+            .replace("<3", "♥") \
+            .replace("BionicBunion", "😺") \
+            .replace("FrankerZ", "🐶") \
+            .replace("ItsBoshyTime", "⚠") \
             .replace("Kappa", "😏") \
-            .replace("KZskull", "💀 ")
+            .replace("KZskull", "💀")
 
         edited = True
         hexchat.emit_print(event, *word)
