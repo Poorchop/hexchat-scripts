@@ -1,6 +1,7 @@
 from HTMLParser import HTMLParser
 import glob
 import os
+import Queue
 import re
 import requests
 import threading
@@ -8,7 +9,7 @@ import hexchat
 
 __module_name__ = "Link Title"
 __module_author__ = "PDog"
-__module_version__ = "0.6"
+__module_version__ = "0.7"
 __module_description__ = "Display website title when a link is posted in chat"
 
 # TODO: Possible memory leak, figure out what exception prints, Python 3 compat <PDog>
@@ -34,7 +35,7 @@ def snarfer(html_doc):
         snarf = ""
     return snarf
 
-def print_title(url, chan, nick, mode):
+def get_title(url, nick, mode, q):
     try:
         r = requests.get(url, verify=False)
         if r.headers["content-type"].split("/")[0] == "text":
@@ -48,10 +49,9 @@ def print_title(url, chan, nick, mode):
                   u"\0033\002::\002"
             msg = msg.format(title, url, nick, mode)
             msg = msg.encode(r.encoding, "ignore")
-            # Weird context and timing issues with threading, hence:
-            hexchat.command("TIMER 0.1 DOAT {0} ECHO {1}".format(chan, msg))
+            q.put(msg)
     except requests.exceptions.RequestException as e:
-        print(e)
+        q.put(e)
 
 def event_cb(word, word_eol, userdata, attr):
     # ignore znc playback
@@ -69,8 +69,12 @@ def event_cb(word, word_eol, userdata, attr):
 
             if url.endswith(","):
                 url = url[:-1]
-                
-            threading.Thread(target=print_title, args=(url, chan, word[0], word[2])).start()
+
+            q = Queue.Queue()
+            threading.Thread(target=get_title, args=(url, word[0], word[2], q)).start()
+            msg = q.get()
+
+            hexchat.prnt(msg)
 
     return hexchat.EAT_NONE
             
