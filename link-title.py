@@ -1,4 +1,4 @@
-from HTMLParser import HTMLParser
+from html.parser import HTMLParser
 import glob
 import os
 import re
@@ -11,7 +11,7 @@ __module_author__ = "PDog"
 __module_version__ = "0.6"
 __module_description__ = "Display website title when a link is posted in chat"
 
-# TODO: Possible memory leak, figure out what exception prints, Python 3 compat <PDog>
+# TODO: Merge py2/py3 branches <PDog>
 
 events = ("Channel Message", "Channel Action",
           "Channel Msg Hilight", "Channel Action Hilight",
@@ -38,16 +38,15 @@ def print_title(url, chan, nick, mode):
     try:
         r = requests.get(url, verify=False)
         if r.headers["content-type"].split("/")[0] == "text":
-            html_doc = r.text.encode(r.encoding)
+            html_doc = r.text
             r.close()
-            title = snarfer(html_doc).decode(r.encoding)
+            title = snarfer(html_doc)
             title = HTMLParser().unescape(title)
             msg = u"\0033\002::\003 Title:\002 {0} " + \
                   u"\0033\002::\003 URL:\002 \00318\037{1}\017 " + \
                   u"\0033\002::\003 Posted by:\002 {3}{2} " + \
                   u"\0033\002::\002"
             msg = msg.format(title, url, nick, mode)
-            msg = msg.encode(r.encoding, "ignore")
             # Weird context and timing issues with threading, hence:
             hexchat.command("TIMER 0.1 DOAT {0} ECHO {1}".format(chan, msg))
     except requests.exceptions.RequestException as e:
