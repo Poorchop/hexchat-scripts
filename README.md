@@ -80,6 +80,8 @@ If executed properly, you will see a message that the channel/network has been r
 * `/jptab list filters`
 
 #### [link-title.py] (link-title.py)
+*Python 3 version [here](https://github.com/PoorDog/hexchat-scripts/blob/python3/link-title.py)*
+
 Display website titles above links that are pasted in chat
 
 Plays nicely with [get-youtube-video-info.py] (https://github.com/demialucard/xchat-scripts/blob/master/get-youtube-video-info.py)
