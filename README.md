@@ -166,8 +166,8 @@ Here are some links in addition to Farow's:
 #### GitHub
 * [ChaozZBubi](https://github.com/ChaozZBubi/tools)
 * [Chuong Ngo](https://github.com/cngo-github/xchat-translator)
-* [demialucard](https://github.com/PoorDog/xchat-scripts/blob/python3/get-youtube-video-info.py)
-(see [here](https://github.com/PoorDog/xchat-scripts/blob/master/get-youtube-video-info.py) for Python 3 support)
+* [demialucard](https://github.com/demialucard/xchat-scripts)
+(see [here](https://github.com/PoorDog/xchat-scripts/blob/python3/get-youtube-video-info.py) for Python 3 port)
 * [GermainZ](https://github.com/GermainZ/HexChat-Scripts)
 * [iceTwy](https://github.com/iceTwy/xchat-deadbeef)
 * [logicplace](https://github.com/logicplace/xchat-plugins)
