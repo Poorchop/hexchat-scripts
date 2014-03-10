@@ -4,6 +4,7 @@ import os
 import re
 import requests
 import threading
+import urllib3
 import hexchat
 
 __module_name__ = "Link Title"
@@ -11,7 +12,7 @@ __module_author__ = "PDog"
 __module_version__ = "0.6"
 __module_description__ = "Display website title when a link is posted in chat"
 
-# TODO: Possible memory leak, figure out what exception prints, Python 3 compat <PDog>
+# TODO: Better exception handling, merge Python 3 version <PDog>
 
 events = ("Channel Message", "Channel Action",
           "Channel Msg Hilight", "Channel Action Hilight",
@@ -51,7 +52,9 @@ def print_title(url, chan, nick, mode):
             # Weird context and timing issues with threading, hence:
             hexchat.command("TIMER 0.1 DOAT {0} ECHO {1}".format(chan, msg))
     except requests.exceptions.RequestException as e:
-        print(e)
+        print("\002Link Title:\002 {0}".format(e))
+    except urllib3.exceptions.HTTPError as e:
+        print("\002Link Title:\002 {0}".format(e))
 
 def event_cb(word, word_eol, userdata, attr):
     # ignore znc playback
