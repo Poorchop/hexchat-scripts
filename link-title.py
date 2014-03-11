@@ -1,5 +1,4 @@
 from HTMLParser import HTMLParser
-import glob
 import os
 import re
 import requests
@@ -23,7 +22,7 @@ def find_yt_script():
     script_path = os.path.join(hexchat.get_info("configdir"),
                                "addons", "get-youtube-video-info.py")
 
-    if glob.glob(script_path):
+    if os.path.exists(script_path):
         return re.compile("https?://(?!(w{3}\.)?youtu\.?be(\.|/))")
     else:
         return re.compile("https?://")
