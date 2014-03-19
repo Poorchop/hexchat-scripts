@@ -44,7 +44,7 @@ Automatically launch a Twitch.TV stream via Livestreamer when the corresponding 
 Follow the [guide](http://help.twitch.tv/customer/portal/articles/1302780-twitch-irc#Hexchat%20Guide) for connecting
 to Twitch chat with HexChat, then join a channel to launch the corresponding stream with Livestreamer.
 
-You can alternately type `/livestreamer <#channel> <quality>` to manually launch a stream.
+You can alternately type `/livestreamer <streamer> <quality>` to manually launch a stream.
 
 #### [joinparttab.py] (joinparttab.py)
 This script aggregates all join, part, and quit mesages from a user-defined list of servers and/or channels and places them in a new tab.
@@ -154,6 +154,14 @@ Place "script.py" in your HexChat addons folder:
 
 The HexChat Python plugin interface is required.
 
+#### [twitch-title.py] (twitch-title.py)
+This script will retrieve information such as stream status, current game, and broadcast title
+when you join a TwitchTV IRC channel. It will update the channel title with this information
+in addition to printing it locally. It will also update this information every 10 minutes,
+so if a stream goes offline for example, the title will eventually change to reflect this.
+
+This script has only been tested with Python 3 at the moment.
+
 ### Notes:
 All scripts are under the [MIT license] (./license) unless otherwise stated.
 
@@ -166,6 +174,7 @@ Here are some links in addition to Farow's:
 #### GitHub
 * [ChaozZBubi](https://github.com/ChaozZBubi/tools)
 * [Chuong Ngo](https://github.com/cngo-github/xchat-translator)
+* [cryzed](https://github.com/cryzed/Twitch-IRC-Userlist-Fix)
 * [demialucard](https://github.com/demialucard/xchat-scripts)
 (see [here](https://github.com/PoorDog/xchat-scripts/blob/python3/get-youtube-video-info.py) for Python 3 port)
 * [GermainZ](https://github.com/GermainZ/HexChat-Scripts)
