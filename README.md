@@ -37,6 +37,9 @@ Format messages from specific users to make them easier to follow
 /unfollow &lt;nick&gt;
 
 #### [hexchat-livestreamer.py] (hexchat-livestreamer.py)
+*This script requires the [Exec](http://hexchat.readthedocs.org/en/latest/addons.html#exec) plugin,
+which must be selected from the HexChat installer during installation*
+
 Automatically launch a Twitch.TV stream via Livestreamer when the corresponding channel is joined in HexChat.
 [Livestreamer] (http://livestreamer.tanuki.se/) must be installed for this script to work correctly.
 
@@ -80,6 +83,8 @@ If executed properly, you will see a message that the channel/network has been r
 * `/jptab list filters`
 
 #### [link-title.py] (link-title.py)
+*This script requires the [Do At](http://hexchat.readthedocs.org/en/latest/addons.html#do-at) plugin,
+which must be selected from the HexChat installer during installation*  
 *Python 3 version [here](https://github.com/PoorDog/hexchat-scripts/blob/python3/link-title.py)*
 
 Display website titles above links that are pasted in chat
@@ -146,9 +151,9 @@ or by anyone else in the channel.
 
 #### [twitch-title.py] (twitch-title.py)
 This script will retrieve information such as stream status, current game, and broadcast title
-when you join a TwitchTV IRC channel. It will update the channel title with this information
+when you join a TwitchTV IRC channel. It will update the channel topic with this information
 in addition to printing it locally. It will also update this information every 10 minutes,
-so if a stream goes offline for example, the title will eventually change to reflect this.
+so if a stream goes offline for example, the topic will eventually change to reflect this.
 
 This script has only been tested with Python 3 as of typing this.
 
