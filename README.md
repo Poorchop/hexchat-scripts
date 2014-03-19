@@ -144,6 +144,14 @@ Example: "Hello kappa frankerz" is automatically converted to "Hello Kappa Frank
 This message would subsequently appear to you as "Hello 😏 🐶 " whether it was typed by you
 or by anyone else in the channel.
 
+#### [twitch-title.py] (twitch-title.py)
+This script will retrieve information such as stream status, current game, and broadcast title
+when you join a TwitchTV IRC channel. It will update the channel title with this information
+in addition to printing it locally. It will also update this information every 10 minutes,
+so if a stream goes offline for example, the title will eventually change to reflect this.
+
+This script has only been tested with Python 3 as of typing this.
+
 ### Installation:
 Place "script.py" in your HexChat addons folder:
 
@@ -153,14 +161,6 @@ Place "script.py" in your HexChat addons folder:
     * `~/.config/hexchat/addons`
 
 The HexChat Python plugin interface is required.
-
-#### [twitch-title.py] (twitch-title.py)
-This script will retrieve information such as stream status, current game, and broadcast title
-when you join a TwitchTV IRC channel. It will update the channel title with this information
-in addition to printing it locally. It will also update this information every 10 minutes,
-so if a stream goes offline for example, the title will eventually change to reflect this.
-
-This script has only been tested with Python 3 at the moment.
 
 ### Notes:
 All scripts are under the [MIT license] (./license) unless otherwise stated.
