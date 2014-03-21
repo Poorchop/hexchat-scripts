@@ -6,8 +6,8 @@ __module_author__ = "PDog"
 __module_version__ = "0.4"
 __module_description__ = "Move fserve advertisements to a separate tab"
 
-# Add channels from which you would like to filter ads, e.g. channels = ["#freenode", "#defocus", "##linux"]
-channels = []
+# Add channels from which you would like to filter ads, e.g. channels = ("#channel", "#topsecret")
+channels = ()
 
 # Customize the name of the tab to your liking
 tab_name = "(Ads)"
@@ -33,52 +33,58 @@ unknown_2_regex    = re.compile("^(\s*((\(\)\(\)\()|(<><><)))\s+.*?\s+(((\)\(\)\
 unknown_3_regex    = re.compile(".*?For\sMy\sList.*?\([\w:]+\)\sand\sDCC\sStatus,\stype\s[@\w\\\[\]{}^`|-]+\sand\s[@\w"
                                 "\\\[\]{}^`|-]+\.\s.*?Slots.*?Ques\sTaken.*?Next\sSend:.*?CPS\sin\sUse:.*?Highest\sCps"
                                 "\sRecord:.*?Total\sFile\sServed:.*?")
+upp_regex          = re.compile("^(<File\sServer\sOnline>)\sTrigger:.*?(\.<UPP>\.)$")
 
-ad_lst = [bwi_regex, irssi_fserve_regex, iterati_regex, ns_fserve_regex,
+ad_lst = (bwi_regex, irssi_fserve_regex, iterati_regex, ns_fserve_regex,
           omenserve_regex, os_limits_regex, single_file_regex, unknown_1_regex,
-          unknown_2_regex, unknown_3_regex]
+          unknown_2_regex, unknown_3_regex, upp_regex)
 server_nicks = []
-
 moved = False
+
 
 def find_adtab():
     context = hexchat.find_context(channel=tab_name)
-    if context == None:
+    if context is None:
         hexchat.command("NEWSERVER -noconnect {0}".format(tab_name))
         return hexchat.find_context(channel=tab_name)
     else:
         return context
-		
+
+
 def adfilter_cb(word, word_eol, userdata):
     word = [(word[i] if len(word) > i else "") for i in range(4)]
-        
+
     global server_nicks
     channel = hexchat.get_info("channel")
     stripped_msg = hexchat.strip(word[1], -1, 3)
-	
+
     for ad in ad_lst:
         if ad.match(stripped_msg) and channel in channels:
+            # Keep a list of server nicknames in case they are needed for filtering purposes
             if word[0] not in server_nicks:
                 server_nicks.append(word[0])
-				
+
             ad_context = find_adtab()
             ad_context.prnt("{0}\t\00318<{4}{3}{1}>\00399 {2}".format(channel, *word))
+
             return hexchat.EAT_ALL
+
 
 def ctcpfilter_cb(word, word_eol, userdata):
     global moved
-	
+
     if moved:
         return
-	
-    if word[0][:5] == "SLOTS" or word[0][:3] == "MP3" or word[1] in server_nicks and word[2] in channels:
+
+    if word[0].split()[0] == "SLOTS" or word[0].split()[0] == "MP3" and word[2] in channels:
         ad_context = find_adtab()
-		
+
         moved = True
         ad_context.emit_print("CTCP Generic to Channel", *word)
         moved = False
-		
+
         return hexchat.EAT_ALL
+
 
 def unload_cb(userdata):
     for chan in hexchat.get_list("channels"):
@@ -86,6 +92,7 @@ def unload_cb(userdata):
             ad_context = hexchat.find_context(channel=tab_name)
             ad_context.command("CLOSE")
     hexchat.prnt(__module_name__ + " version " + __module_version__ + " unloaded")
+
 
 hexchat.hook_print("Channel Message", adfilter_cb, priority=hexchat.PRI_HIGH)
 hexchat.hook_print("CTCP Generic to Channel", ctcpfilter_cb)
