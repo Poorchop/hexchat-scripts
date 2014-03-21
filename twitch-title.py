@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import requests
 import threading
 import hexchat
@@ -6,8 +8,8 @@ __module_name__ = "Twitch Title"
 __module_author__ = "PDog"
 __module_version__ = "0.1"
 __module_description__ = "Display stream status and description for TwitchTV streams"
-# TODO: Resolve mess with threading (possible unnecessary function calls) <PDog>
-# TODO: Figure out why get_current_status() apparently fails to call itself sometimes <PDog>
+# TODO: Clean up thread handling <PDog>
+# TODO: Figure out why get_current_status() sometimes doesn't print updated status <PDog>
 
 t = None
 
@@ -32,7 +34,8 @@ class StreamParser:
         hexchat.prnt(msg)
         # HexChat doesn't support hiding characters in the topic bar, so strip the formatting until it's fixed
         msg = hexchat.strip(msg, -1, 3)
-        hexchat.command("RECV :Topic!Topic@twitch.tv TOPIC #{0} :{1}".format(self.channel, msg))
+        if hexchat.get_info("topic") != msg:
+            hexchat.command("RECV :Topic!Topic@twitch.tv TOPIC #{0} :{1}".format(self.channel, msg))
 
     def get_twitch_channels(self):
         """
