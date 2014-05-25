@@ -2,7 +2,7 @@ import re
 import hexchat
 
 __module_name__ = "AdFilter"
-__module_author__ = "PDog"
+__module_author__ = "Poorchop"
 __module_version__ = "0.4"
 __module_description__ = "Move fserve advertisements to a separate tab"
 
@@ -23,16 +23,17 @@ ns_fserve_regex    = re.compile("^(Type)\s+\W.*?for\smy\stiny\slist.*?[\d,]+\s+b
                                 "\W]+")
 omenserve_regex    = re.compile(".*?Type:\s+\W[\w\\\[\]{}^`|-]+\s+For\sMy\sList\sOf:\s+[\d,]+\s+Files\s+.*?Slots:\s+\d+"
                                 "/\d+\s+.*?Queued:\s+\d+\s+.*?Speed:\s+[\d,]+cps\s+.*?Next:\s+\w+\s+.*?Served:\s+[\d,]+"
-                                "\s+.*?List:\s+[A-Z][a-z]+\s+\w+\s+.*?Search:\s+[A-Z]{2,3}\s+.*?Mode:\s+\w+\s+.*?$")
+                                "\s+.*?List:\s+([A-Z][a-z]+\s+\w+\s+.*?Search:\s+[A-Z]{2,3})?(\s+.*?Mode:\s+\w+\s+.*?$)"
+                                "?")
 os_limits_regex    = re.compile("^(\s+)?(Sent:)\s+.*?To:\s+.*?Total\s+Sent:\s+[\d,]+\s+Files.*?Yesterday:\s[\d,]+\s+Fil"
                                 "es.*?Today.*?:\s+[\d,]+\s+Files.*?OS-Limits\s+(v[\d\.]+)$")
 single_file_regex  = re.compile("^(\s+)?Type:\s+\W[\w\\\[\]{}^`|-]+.*?To\sGet\sThis\s+.*?(File|MP3)$")
 unknown_1_regex    = re.compile("^(Type)\s+\W[\w\\\[\]{}^`|-]+\s+for\smy\slist\sof\s+\([\d,]+\)\s+Ebooks\screated\son\s"
                                 "+[\d-]+\s+([\d:]+)$")
-unknown_2_regex    = re.compile("^(\s*((\(\)\(\)\()|(<><><)))\s+.*?\s+(((\)\(\)\(\))|(><><>))\s*)$")
-unknown_3_regex    = re.compile(".*?For\sMy\sList.*?\([\w:]+\)\sand\sDCC\sStatus,\stype\s[@\w\\\[\]{}^`|-]+\sand\s[@\w"
-                                "\\\[\]{}^`|-]+\.\s.*?Slots.*?Ques\sTaken.*?Next\sSend:.*?CPS\sin\sUse:.*?Highest\sCps"
-                                "\sRecord:.*?Total\sFile\sServed:.*?")
+unknown_2_regex    = re.compile("^(\s*((\(\)\(\)\()|(<><><)|(€æ{@}æ€)))\s+.*?\s+(((\)\(\)\(\))|(><><>)|(€æ{@}æ€))\s*)$")
+unknown_3_regex    = re.compile(".*?For\sMy\sList.*?\([\w:-]+\)(\s\([\w\d:\.]+\))?\sand\sDCC\sStatus,\stype\s[@\w\\\[\]"
+                                "{}^`|-]+\sand\s[@\w\\\[\]{}^`|-]+\.\s.*?Slots.*?Ques\sTaken.*?Next\sSend:.*?CPS\sin\sU"
+                                "se:.*?Highest\sCps\sRecord:.*?Total\sFile('s)?\sServed:.*?")
 upp_regex          = re.compile("^(<File\sServer\sOnline>)\sTrigger:.*?(\.<UPP>\.)$")
 
 ad_lst = (bwi_regex, irssi_fserve_regex, iterati_regex, ns_fserve_regex,
