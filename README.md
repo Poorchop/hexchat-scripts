@@ -1,16 +1,14 @@
 ### hexchat-scripts
-This repository includes my own scripts as well forks and backups of scripts made by others.
-Some of my scripts are still a work in progress. Please let me know if you find any issues.
-Many of these scripts were made possible with help or with templates from
-[TingPing](https://github.com/TingPing), [Farow](https://github.com/Farow),
+This repository includes my own scripts as well forks and backups of scripts made by others. Some of my scripts are
+still a work in progress. Please let me know if you find any issues. Many of these scripts were made possible with help
+or with templates from [TingPing](https://github.com/TingPing), [Farow](https://github.com/Farow),
 [Arnavion](https://github.com/Arnavion), [GermainZ](https://github.com/GermainZ), and others.
 
 ***
 
 #### [Arnavion-scripts] (./Arnavion-scripts)
-Clone of Arnavion's script repository. His Royal Highness requests that
-absolutely nobody contact him about these scripts for any reason whatsoever.
-I take no credit for any of these scripts and as the original repository did not
+Clone of Arnavion's script repository. His Royal Highness requests that absolutely nobody contact him about these
+scripts for any reason whatsoever. I take no credit for any of these scripts and as the original repository did not
 include a license, their licensing is technically handled by the
 [GitHub Terms of Service](https://help.github.com/articles/github-terms-of-service#f-copyright-and-content-ownership).
 
@@ -21,13 +19,13 @@ To those coming from mIRC, this is meant to to partially replicate the ad-relate
 [DukeLupus's dlFilter script](http://dukelupus.com/dlfilter).
 
 *__Usage:__*	
-You only need to modify `channels = []` for this script to work.
-See the script comment if you need instructions on how to add a channel to the filter list.
+You only need to modify `channels = []` for this script to work. See the script comment if you need instructions on how
+to add a channel to the filter list.
 
 #### [dcc-spam.py] (dcc-spam.py)
-*Untested*: This script should theoretically detect DCC spammers and automatically add them to ignore.
-Since I haven't tested it, expect things to be broken. Currently, it only ignores people trying to
-repeatedly send the same file within a five second period.
+*Untested*: This script should theoretically detect DCC spammers and automatically add them to ignore. Since I haven't
+tested it, expect things to be broken. Currently, it only ignores people trying to repeatedly send the same file within
+a five second period.
 
 #### [follow.py] (follow.py)
 Format messages from specific users to make them easier to follow
@@ -37,11 +35,11 @@ Format messages from specific users to make them easier to follow
 /unfollow &lt;nick&gt;
 
 #### [hexchat-livestreamer.py] (hexchat-livestreamer.py)
-*This script requires the [Exec](http://hexchat.readthedocs.org/en/latest/addons.html#exec) plugin,
-which must be selected from the HexChat installer during installation*
+*This script requires the [Exec](http://hexchat.readthedocs.org/en/latest/addons.html#exec) plugin, which must be
+selected from the HexChat installer during installation*
 
-Automatically launch a Twitch.TV stream via Livestreamer when the corresponding channel is joined in HexChat.
-[Livestreamer] (http://livestreamer.tanuki.se/) must be installed for this script to work correctly.
+Automatically launch a TwitchTV stream via Livestreamer when the corresponding channel is joined in HexChat.
+[Livestreamer](http://livestreamer.tanuki.se/) must be installed for this script to work correctly.
 
 *__Usage:__*	
 Follow the [guide](http://help.twitch.tv/customer/portal/articles/1302780-twitch-irc#Hexchat%20Guide) for connecting
@@ -50,8 +48,9 @@ to Twitch chat with HexChat, then join a channel to launch the corresponding str
 You can alternately type `/livestreamer <streamer> <quality>` to manually launch a stream.
 
 #### [joinparttab.py] (joinparttab.py)
-This script aggregates all join, part, and quit mesages from a user-defined list of servers and/or channels and places them in a new tab.
-The name of the channel from where the join/part/quit event originated is displayed before each join/part/quit message.
+This script aggregates all join, part, and quit mesages from a user-defined list of servers and/or channels and places
+them in a new tab. The name of the channel from where the join/part/quit event originated is displayed before each
+join/part/quit message.
 
 *__Usage:__*	
 You can customize the name of the filter tab by setting `tab_name = ""` to whatever you like.
@@ -87,9 +86,10 @@ If executed properly, you will see a message that the channel/network has been r
 which must be selected from the HexChat installer during installation*  
 *Python 3 version [here](https://github.com/PoorDog/hexchat-scripts/blob/python3/link-title.py)*
 
-Display website titles above links that are pasted in chat
+Display website titles for links that are pasted in chat
 
-Plays nicely with [get-youtube-video-info.py](https://github.com/demialucard/xchat-scripts/blob/master/get-youtube-video-info.py)
+Plays nicely with
+[get-youtube-video-info.py](https://github.com/demialucard/xchat-scripts/blob/master/get-youtube-video-info.py)
 (some message formatting also taken from that script)
 
 #### [nick2server.py] (nick2server.py)
@@ -108,7 +108,8 @@ Add nicknames for spying on to `nicknames = []`. Nicknames should be in quotes a
 #### [pyglatin.py] (pyglatin.py)
 This script is based on the PygLatin Python exercise written by Kate Lockwood:
 * If a word begins with a vowel, "ay" is appended to the end of the word.
-* If a word instead begins with a consonant, the first letter of the word is moved to the end, and the result is appended with "ay".
+* If a word instead begins with a consonant, the first letter of the word is moved to the end, and the result is
+appended with "ay".
 
 *__Usage:__*	
 /pyg &lt;message&gt;
@@ -119,15 +120,14 @@ Move search requests (@find, @search, @seek, etc.) and fserve file requests to a
 To those coming from mIRC, this is meant to to partially replicate the request-related functionality of
 [DukeLupus's dlFilter script](http://dukelupus.com/dlfilter).
 
-This script is meant to complement [adfilter.py] (adfilter.py),
-but they can be used independently of each other.
+This script is meant to complement [adfilter.py](adfilter.py), but they can be used independently of each other.
 
 *__Usage:__*	
 You only need to modify `channels = []` for this script to work.
 See the script comment if you need instructions on how to add a channel to the filter list.
 
 #### [shortnicks.py] (shortnicks.py)
-Automatically truncate nicknames beyond a user-defined length
+Automatically truncate nicknames that are beyond a user-defined length
 
 *__Usage:__*	
 See script comment for instructions
@@ -135,25 +135,23 @@ See script comment for instructions
 #### [twitch-autoemote.py] (twitch-autoemote.py)
 Automatically formats TwitchTV emotes with proper capitalization
 
-Use [TingPing's twitch.py script](https://github.com/TingPing/plugins/blob/master/HexChat/twitch.py)
-for a more comprehensive Twitch experience.
+Use [TingPing's twitch.py script](https://github.com/TingPing/plugins/blob/master/HexChat/twitch.py) for a more
+comprehensive Twitch experience.
 
 *__Usage:__*	
-Emotes are formatted with proper capitalization as you type.
-This only modifies your text when a TwitchTV IRC channel is in focus.
-Therefore, this script is essentially a twitch-specific auto-replace tool.
+Emotes are formatted with proper capitalization as you type. This only modifies your text when a TwitchTV IRC channel is
+in focus. Therefore, this script is essentially a twitch-specific auto-replace tool.
 
 This script also replaces a few emotes with similar unicode characters.
 
-Example: "Hello kappa frankerz" is automatically converted to "Hello Kappa FrankerZ" as you type.
-This message would subsequently appear to you as "Hello 😏 🐶 " whether it was typed by you
-or by anyone else in the channel.
+Example: "Hello kappa frankerz" is automatically converted to "Hello Kappa FrankerZ" as you type. This message would
+subsequently appear to you as "Hello 😏 🐶 " whether it was typed by you or by anyone else in the channel.
 
 #### [twitch-title.py] (twitch-title.py)
-This script will retrieve information such as stream status, current game, and broadcast title
-when you join a TwitchTV IRC channel. It will update the channel topic with this information
-in addition to printing it locally. It will also update this information every 10 minutes,
-so if a stream goes offline for example, the topic will eventually change to reflect this.
+This script will retrieve information such as stream status, current game, and broadcast title when you join a TwitchTV
+IRC channel. It will update the channel topic with this information in addition to printing it locally. It will also
+update this information every 10 minutes, so if a stream goes offline for example, the topic will eventually change to
+reflect this.
 
 This script has only been tested with Python 3 as of typing this.
 
@@ -168,21 +166,21 @@ Place "script.py" in your HexChat addons folder:
 The HexChat Python plugin interface is required.
 
 ### Notes:
-All scripts are under the [MIT license] (./license) unless otherwise stated.
+All scripts are under the [MIT license] (./LICENSE) unless otherwise stated.
 
-I highly recommend checking out [Farow's readme](https://github.com/Farow/hexchat-scripts).
-Both he and [TingPing] (https://github.com/TingPing/plugins) have really useful scripts.
-Also check out my starred repositories to find additional scripts that I might have not yet listed below.
+I highly recommend checking out [Farow's readme](https://github.com/Farow/hexchat-scripts). Both he and
+[TingPing](https://github.com/TingPing/plugins) have really useful scripts. Also check out my starred repositories to
+find additional scripts that I might have not yet listed below.
 
 Here are some links in addition to Farow's:
 
 #### GitHub
-* [ChaozZBubi](https://github.com/ChaozZBubi/tools)
 * [Chuong Ngo](https://github.com/cngo-github/xchat-translator)
 * [cryzed](https://github.com/cryzed/Twitch-IRC-Userlist-Fix)
 * [demialucard](https://github.com/demialucard/xchat-scripts)
-(see [here](https://github.com/PoorDog/xchat-scripts/blob/python3/get-youtube-video-info.py) for Python 3 port)
+(see [here](https://github.com/Poorchop/xchat-scripts/blob/python3/get-youtube-video-info.py) for Python 3 port)
 * [GermainZ](https://github.com/GermainZ/HexChat-Scripts)
+* [GunfighterJ](https://github.com/GunfighterJ/HexchatScripts)
 * [iceTwy](https://github.com/iceTwy/xchat-deadbeef)
 * [logicplace](https://github.com/logicplace/xchat-plugins)
 * [Phr33d0m](https://github.com/Phr33d0m/Random)
