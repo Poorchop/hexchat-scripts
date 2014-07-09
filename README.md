@@ -27,6 +27,10 @@ to add a channel to the filter list.
 tested it, expect things to be broken. Currently, it only ignores people trying to repeatedly send the same file within
 a five second period.
 
+#### [detach.py] (detach.py)
+*For use with ZNC only!*: Detach the current channel with a simple "/detach", eliminating the need to pass a channel
+name. If you do pass a channel name along with the command, then the specified channel is detached instead as normal.
+
 #### [follow.py] (follow.py)
 Format messages from specific users to make them easier to follow
 
@@ -175,17 +179,28 @@ find additional scripts that I might have not yet listed below.
 Here are some links in addition to Farow's:
 
 #### GitHub
+* [Auze](https://github.com/Auze/bansheeX)
+* [banditkroot](https://github.com/banditkroot/xchat_livestreamer)
+* [baspt](https://github.com/baspt/xbmc-hexchat)
 * [Chuong Ngo](https://github.com/cngo-github/xchat-translator)
 * [cryzed](https://github.com/cryzed/Twitch-IRC-Userlist-Fix)
 * [demialucard](https://github.com/demialucard/xchat-scripts)
 (see [here](https://github.com/Poorchop/xchat-scripts/blob/python3/get-youtube-video-info.py) for Python 3 port)
+* [fersure91](https://github.com/fersure91/xchat-funtime)
 * [GermainZ](https://github.com/GermainZ/HexChat-Scripts)
+* [Gond0r](https://github.com/Gond0r/Hexchat_Scripts)
 * [GunfighterJ](https://github.com/GunfighterJ/HexchatScripts)
 * [iceTwy](https://github.com/iceTwy/xchat-deadbeef)
+* [Jake0720](https://github.com/Jake0720/XChat-Scripts)
 * [logicplace](https://github.com/logicplace/xchat-plugins)
 * [Phr33d0m](https://github.com/Phr33d0m/Random)
+* [rylai-](https://github.com/rylai-/hexchat-randchan)
+* [Socialery](https://github.com/Socialery/HexChatScripts)
 * [Wardje](https://github.com/Wardje/xchat-scripts)
 
 #### Elsewhere
 * [Chryyz](https://bitbucket.org/Chryyz/hexchat-scripts/src)
 * [Dan Boklöv-Palovaara](http://dev.wh00s.net/index.php?py)
+
+#### Other interesting HexChat stuff
+* [truff215](https://github.com/truff215/bearded-batman) (Add-on to make Lua scripts)
