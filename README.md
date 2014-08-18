@@ -151,6 +151,16 @@ This script also replaces a few emotes with similar unicode characters.
 Example: "Hello kappa frankerz" is automatically converted to "Hello Kappa FrankerZ" as you type. This message would
 subsequently appear to you as "Hello 😏 🐶 " whether it was typed by you or by anyone else in the channel.
 
+If you wish to enable support for subscriber emotes, download [this file]
+(https://raw.githubusercontent.com/Poorchop/hexchat-scripts/master/twitch-sub-emotes.txt), place it your HexChat
+addons folder, ensure that [this line]
+(https://github.com/Poorchop/hexchat-scripts/blob/418f81847e90e87e5d51b920765666e7da39777f/twitch-autoemote.py#L15)
+reads `allow_sub_emotes = True`, and then reload this script if HexChat is already open.
+
+Please be aware that this feature is not properly implemented yet, so right now, this will add over 13,000 emotes to the
+default list and will therefore probably cause some unwanted formatting. To disable subscriber emotes, set
+`allow_sub_emotes` to `False` (this is case sensitive!).
+
 #### [twitch-title.py] (twitch-title.py)
 This script will retrieve information such as stream status, current game, and broadcast title when you join a TwitchTV
 IRC channel. It will update the channel topic with this information in addition to printing it locally. It will also
