@@ -169,6 +169,13 @@ reflect this.
 
 This script has only been tested with Python 3 as of typing this.
 
+#### [url-logger.py] (url-logger.py)
+Log URLs to disk for specified channels and private messages. This is a pretty useless script because HexChat can already
+log URLs to disk, but this script places the logged URLs in a unique directory:
+configdir/logs/:network/:channel/urls.txt. You probably don't want to use this script, but if you do, you should modify
+`watched_channels` to suit your needs. The regex is courtesy of [Matthew O'Riordan]
+(http://blog.mattheworiordan.com/post/13174566389/url-regular-expression-for-links-with-or-without-the).
+
 ### Installation:
 Place "script.py" in your HexChat addons folder:
 
