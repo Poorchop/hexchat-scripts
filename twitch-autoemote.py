@@ -183,7 +183,7 @@ def keypress_cb(word, word_eol, userdata):
     key = word[0]
     mod = word[1]
 
-    # a    ctrl          backspace
+    #                  a    ctrl          backspace
     if (key, mod) == ("97", "4") or key == "65288":
         return
 
