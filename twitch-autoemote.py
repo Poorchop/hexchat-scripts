@@ -2,10 +2,18 @@
 
 import hexchat
 import os
+import sys
+
+if sys.version_info[0] == 2:
+    import urllib2 as urllib_error
+    import urllib as urllib_request
+else:
+    import urllib.error as urllib_error
+    import urllib.request as urllib_request
 
 __module_name__ = "Twitch Emote Autoformat"
 __module_author__ = "Poorchop"
-__module_version__ = "0.7"
+__module_version__ = "0.8"
 __module_description__ = "Automatically format TwitchTV emote names with proper capitalization"
 # TODO: cross platform support
 # TODO: emote unicode character support
@@ -133,21 +141,34 @@ emote_dict = {'4head': '4Head',
               'noscope420': 'noScope420',
               'shazamicon': 'shazamicon'}
 
+
+def parse_sub_emotes(file_path):
+    f = open(file_path, "r")
+    for line in f:
+        stripped_emote = line.replace("\n", "")
+        lowercase_emote = stripped_emote.lower()
+        emote_dict[lowercase_emote] = stripped_emote
+    f.close()
+
+
+def download_emotes(file_path):
+    url = "https://raw.githubusercontent.com/Poorchop/hexchat-scripts/master/twitch-sub-emotes.txt"
+    try:
+        urllib_request.urlretrieve(url, file_path)
+        hexchat.prnt("Successfully downloaded subscriber emote list")
+        parse_sub_emotes(file_path)
+    except urllib_error.HTTPError as e:
+        hexchat.prnt("Could not retrieve subscriber emote list ({}), try downloading manually at {} and then reload "
+                     "this script".format(e, url))
+
+
 if allow_sub_emotes:
     file_path = os.path.join(hexchat.get_info("configdir"),
                              "addons", "twitch-sub-emotes.txt")
-
     if os.path.exists(file_path):
-        f = open(file_path, "r")
-        for line in f:
-            stripped_emote = line.replace("\n", "")
-            lowercase_emote = stripped_emote.lower()
-            emote_dict[lowercase_emote] = stripped_emote
-        f.close()
+        parse_sub_emotes(file_path)
     else:
-        print("*** Subscriber emote list not found! Download it at "
-              "https://raw.githubusercontent.com/Poorchop/hexchat-scripts/master/twitch-sub-emotes.txt, "
-              "place it in your HexChat addons folder, and then reload this script to use subscriber emotes. ***")
+        download_emotes(file_path)
 
 
 def is_twitch():
@@ -162,7 +183,7 @@ def keypress_cb(word, word_eol, userdata):
     key = word[0]
     mod = word[1]
 
-    #                  a    ctrl          backspace
+    # a    ctrl          backspace
     if (key, mod) == ("97", "4") or key == "65288":
         return
 
