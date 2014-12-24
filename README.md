@@ -13,6 +13,11 @@ scripts for any reason whatsoever. I take no credit for any of these scripts and
 include a license, their licensing is technically handled by the
 [GitHub Terms of Service](https://help.github.com/articles/github-terms-of-service#f-copyright-and-content-ownership).
 
+*Note:* This folder exists solely for archival purposes. I do not maintain these scripts and therefore I will not accept
+any changes made to them. Arnavion said himself that you are free to use these scripts and make changes as long as you
+don't sue him or hold him liable for any damages, so feel free to fork them and publish your changes locally. All other
+scripts outside this folder are very much open to pull requests.
+
 #### [adfilter.py] (adfilter.py)
 Move common fserve advertisements to a separate tab
 
