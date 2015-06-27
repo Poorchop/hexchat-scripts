@@ -5,6 +5,8 @@ import re
 import requests
 import threading
 import hexchat
+import urllib3
+requests.packages.urllib3.disable_warnings()
 
 __module_name__ = "Link Title"
 __module_author__ = "PDog"
@@ -42,6 +44,7 @@ def print_title(url, chan, nick, mode):
             r.close()
             title = snarfer(html_doc)
             title = HTMLParser().unescape(title)
+            title = title.lstrip()
             msg = u"\0033\002::\003 Title:\002 {0} " + \
                   u"\0033\002::\003 URL:\002 \00318\037{1}\017 " + \
                   u"\0033\002::\003 Posted by:\002 {3}{2} " + \
