@@ -36,7 +36,7 @@ def snarfer(html_doc):
         snarf = ""
     return snarf
 
-def print_title(url, chan, nick, mode):
+def print_title(url, chan, nick, mode, cont):
     try:
         r = requests.get(url, verify=False)
         if r.headers["content-type"].split("/")[0] == "text":
@@ -51,7 +51,7 @@ def print_title(url, chan, nick, mode):
                   u"\0033\002::\002"
             msg = msg.format(title, url, nick, mode)
             # Weird context and timing issues with threading, hence:
-            hexchat.command("TIMER 0.1 DOAT {0} ECHO {1}".format(chan, msg))
+            cont.command("TIMER 0.1 DOAT {0} ECHO {1}".format(chan, msg))
     except requests.exceptions.RequestException as e:
         print(e)
 
@@ -61,7 +61,8 @@ def event_cb(word, word_eol, userdata, attr):
         return
     
     word = [(word[i] if len(word) > i else "") for i in range(4)]
-    chan = hexchat.get_info("channel")
+    cur_context = hexchat.get_context()
+    chan = cur_context.get_info("channel")
     
     for w in word[1].split():
         stripped_word = hexchat.strip(w, -1, 3)
@@ -72,7 +73,7 @@ def event_cb(word, word_eol, userdata, attr):
             if url.endswith(","):
                 url = url[:-1]
                 
-            threading.Thread(target=print_title, args=(url, chan, word[0], word[2])).start()
+            threading.Thread(target=print_title, args=(url, chan, word[0], word[2], cur_context)).start()
 
     return hexchat.EAT_NONE
             
