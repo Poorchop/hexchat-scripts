@@ -31,8 +31,8 @@ def find_yt_script():
 
 def snarfer(html_doc):
     try:
-        h1 = html_doc[html_doc.index("<title")+6:html_doc.index("</title>")][:431]
-        snarf = h1[h1.index(">")+1:][:431]
+        snarf = html_doc[html_doc.index("<title")+6:html_doc.index("</title>")][:431]
+        snarf = snarf[snarf.index(">")+1:]
     except ValueError:
         snarf = ""
     return snarf
