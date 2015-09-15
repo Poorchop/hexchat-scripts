@@ -6,11 +6,11 @@ import threading
 import hexchat
 
 __module_name__ = "Twitch Title"
-__module_author__ = "PDog"
-__module_version__ = "0.1"
+__module_author__ = "Poorchop"
+__module_version__ = "0.2"
 __module_description__ = "Display stream status and description for TwitchTV streams"
-# TODO: Clean up thread handling <PDog>
-# TODO: Figure out why get_current_status() sometimes doesn't print updated status <PDog>
+# TODO: Clean up thread handling <Poorchop>
+# TODO: Figure out why get_current_status() sometimes doesn't print updated status <Poorchop>
 
 t = None
 
@@ -37,7 +37,7 @@ class StreamParser:
         if sys.platform == "win32":
             msg = hexchat.strip(msg, -1, 3)
         if hexchat.get_info("topic") != msg:
-            hexchat.command("RECV :Topic!Topic@twitch.tv TOPIC #{0} :{1}".format(self.channel, msg))
+            hexchat.command("RECV :{0}!Topic@twitch.tv TOPIC #{0} :{1}".format(self.channel, msg))
 
     def get_twitch_channels(self):
         """
@@ -45,7 +45,7 @@ class StreamParser:
         """
         self.twitch_chans = []
         for chan in hexchat.get_list("channels"):
-            if chan.type == 2 and chan.context.get_info("host") == "irc.twitch.tv":
+            if chan.type == 2 and chan.context.get_info("server") == "tmi.twitch.tv":
                 self.twitch_chans.append(chan.channel)
 
     def update_status(self):
@@ -80,7 +80,7 @@ class StreamParser:
 
 
 def is_twitch():
-    server = hexchat.get_info("host")
+    server = hexchat.get_info("server")
     if server and "twitch.tv" in server:
         return True
     else:
