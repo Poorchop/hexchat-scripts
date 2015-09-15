@@ -32,12 +32,13 @@ class StreamParser:
         """
         msg = "\00318{0}\00399 - {1} | Now playing: \00318{2}\00399 | {3}"\
             .format(self.display_name, self.status, self.game, self.title)
-        hexchat.prnt(msg)
+        color_msg = msg
         # HexChat doesn't support hiding characters in the topic bar (Windows), so strip the formatting until it's fixed
         if sys.platform == "win32":
             msg = hexchat.strip(msg, -1, 3)
         if hexchat.get_info("topic") != msg:
             hexchat.command("RECV :{0}!Topic@twitch.tv TOPIC #{0} :{1}".format(self.channel, msg))
+            hexchat.prnt(color_msg)
 
     def get_twitch_channels(self):
         """
