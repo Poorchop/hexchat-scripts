@@ -36,7 +36,7 @@ class StreamParser:
         # HexChat doesn't support hiding characters in the topic bar (Windows), so strip the formatting until it's fixed
         if sys.platform == "win32":
             msg = hexchat.strip(msg, -1, 3)
-        if hexchat.get_info("topic") != msg:
+        if hexchat.find_context(channel="#{}".format(self.channel)).get_info("topic") != msg:
             hexchat.command("RECV :{0}!Topic@twitch.tv TOPIC #{0} :{1}".format(self.channel, msg))
             hexchat.prnt(color_msg)
 
