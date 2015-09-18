@@ -28,7 +28,9 @@ def set_topic(channel, display_name, status, game, title):
     stripped_msg = hexchat.strip(msg, -1, 3)
     if twitch_chans["#{}".format(channel)] != stripped_msg:
         twitch_chans["#{}".format(channel)] = stripped_msg
-        print(msg)
+        # try to print stream status in current channel - doesn't seem to work without Do At plugin
+        current_chan = hexchat.get_info("channel")
+        hexchat.find_context(channel=current_chan).prnt(msg)
         if sys.platform == "win32":
             # HexChat on Windows has poor support for colors in topic bar
             hexchat.command("RECV :{0}!Topic@twitch.tv TOPIC #{0} :{1}".format(channel, stripped_msg))
@@ -69,25 +71,14 @@ def get_twitch_chans():
             twitch_chans[chan.channel] = ""
 
 
-def unload_cb(userdata):
-    """
-    Prevent HexChat from crashing while a thread is active
-    """
-    global t
-    t.cancel()
-    t.join()
-    t = None
-
-
 def channel_check():
     """
     Check to see if there are any open Twitch channels; if so, then start/continue the threaded process
     """
     for chan in hexchat.get_list("channels"):
-        if chan.type == 2 and chan.context.get_info("server") == "tmi.twitch.tv":
+        if chan.type == 2 and chan.server == "tmi.twitch.tv":
             return True
-        else:
-            return False
+    return False
 
 
 def get_current_status():
@@ -98,12 +89,37 @@ def get_current_status():
     if channel_check():
         get_twitch_chans()
         update_status()
-        t = threading.Timer(600, get_current_status)
+        t = threading.Timer(30, get_current_status)
         t.daemon = True
         t.start()
+    else:
+        if t:
+            t.cancel()
+            t.join()
+        t = None
 
 
-get_current_status()
+def join_cb(word, word_eol, userdata):
+    """
+    Restart the threaded process if necessary
+    """
+    global t
+    if is_twitch() and not t:
+        get_current_status()
+
+
+def unload_cb(userdata):
+    """
+    Prevent HexChat from crashing while a thread is active
+    """
+    global t
+    t.cancel()
+    t.join()
+    t = None
+
+
 hexchat.hook_unload(unload_cb)
+hexchat.hook_print("Open Context", join_cb)
+get_current_status()
 
 print(__module_name__ + " version " + __module_version__ + " loaded")
