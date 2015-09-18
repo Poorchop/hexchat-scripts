@@ -236,7 +236,7 @@ you plan on redistributing them. His license is printed here as well for legal p
 
 The MIT License (MIT)
 
-Copyright (c) 2013
+Copyright (c) 2013 TingPing
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
