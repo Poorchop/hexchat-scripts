@@ -1,83 +1,17 @@
 #!/usr/bin/env python3
 
+import hexchat
 import requests
 import sys
 import threading
-import hexchat
 
 __module_name__ = "Twitch Title"
 __module_author__ = "Poorchop"
-__module_version__ = "0.2"
+__module_version__ = "1.0"
 __module_description__ = "Display stream status and description for TwitchTV streams"
-# TODO: Clean up thread handling <Poorchop>
-# TODO: Figure out why get_current_status() sometimes doesn't print updated status <Poorchop>
 
 t = None
-
-
-class StreamParser:
-
-    def __init__(self, channel):
-        self.url = "https://api.twitch.tv/kraken/streams?"
-        self.channel = channel
-        self.twitch_chans = []
-        self.status = ""
-        self.display_name = ""
-        self.game = ""
-        self.title = ""
-
-    def set_topic(self):
-        """
-        Set the channel topic (no formatting) and print the topic locally with formatting
-        """
-        msg = "\00318{0}\00399 - {1} | Now playing: \00318{2}\00399 | {3}"\
-            .format(self.display_name, self.status, self.game, self.title)
-        color_msg = msg
-        # HexChat doesn't support hiding characters in the topic bar (Windows), so strip the formatting until it's fixed
-        if sys.platform == "win32":
-            msg = hexchat.strip(msg, -1, 3)
-        if hexchat.find_context(channel="#{}".format(self.channel)).get_info("topic") != msg:
-            hexchat.command("RECV :{0}!Topic@twitch.tv TOPIC #{0} :{1}".format(self.channel, msg))
-            hexchat.prnt(color_msg)
-
-    def get_twitch_channels(self):
-        """
-        Get a list of open TwitchTV channels and store them in self.twitch_chans
-        """
-        self.twitch_chans = []
-        for chan in hexchat.get_list("channels"):
-            if chan.type == 2 and chan.context.get_info("server") == "tmi.twitch.tv":
-                self.twitch_chans.append(chan.channel)
-
-    def update_status(self):
-        """
-        Check the status of open channels
-        """
-        if self.twitch_chans:
-            for chan in self.twitch_chans:
-                self.channel = chan[1:]
-                self.get_stream_info()
-                self.set_topic()
-        else:
-            pass
-
-    def get_stream_info(self):
-        """
-        Get the stream information
-        """
-        params = {"channel": self.channel}
-        r = requests.get(self.url, params=params)
-        data = r.json()
-        self.display_name = self.channel
-        self.game = ""
-        self.title = "\035Stream is offline\017"
-        if not data["streams"]:
-            self.status = "\00320\002OFFLINE\002\00399"
-        else:
-            self.status = "\00319\002LIVE\002\00399"
-            self.display_name = data["streams"][0]["channel"]["display_name"]
-            self.game = data["streams"][0]["channel"]["game"]
-            self.title = data["streams"][0]["channel"]["status"]
+twitch_chans = {}
 
 
 def is_twitch():
@@ -88,44 +22,88 @@ def is_twitch():
         return False
 
 
+def set_topic(channel, display_name, status, game, title):
+    global twitch_chans
+    msg = "\00318{0}\00399 - {1} | Now playing: \00318{2}\00399 | {3}".format(display_name, status, game, title)
+    stripped_msg = hexchat.strip(msg, -1, 3)
+    if twitch_chans["#{}".format(channel)] != stripped_msg:
+        twitch_chans["#{}".format(channel)] = stripped_msg
+        print(msg)
+        if sys.platform == "win32":
+            # HexChat on Windows has poor support for colors in topic bar
+            hexchat.command("RECV :{0}!Topic@twitch.tv TOPIC #{0} :{1}".format(channel, stripped_msg))
+        else:
+            hexchat.command("RECV :{0}!Topic@twitch.tv TOPIC #{0} :{1}".format(channel, msg))
+
+
+def get_stream_info(channel):
+    url = "https://api.twitch.tv/kraken/streams?"
+    params = {"channel": channel}
+    r = requests.get(url, params=params)
+    data = r.json()
+    display_name = channel
+    game = ""
+    title = "\035Stream is offline\017"
+    if not data["streams"]:
+        status = "\00320\002OFFLINE\002\00399"
+    else:
+        status = "\00319\002LIVE\002\00399"
+        display_name = data["streams"][0]["channel"]["display_name"]
+        game = data["streams"][0]["channel"]["game"]
+        title = data["streams"][0]["channel"]["status"]
+    set_topic(channel, display_name, status, game, title)
+
+
+def update_status():
+    global twitch_chans
+    if twitch_chans:
+        for chan in twitch_chans:
+            channel = chan[1:]
+            get_stream_info(channel)
+
+
+def get_twitch_chans():
+    global twitch_chans
+    for chan in hexchat.get_list("channels"):
+        if chan.type == 2 and chan.context.get_info("server") == "tmi.twitch.tv" and chan.channel not in twitch_chans:
+            twitch_chans[chan.channel] = ""
+
+
+def unload_cb(userdata):
+    """
+    Prevent HexChat from crashing while a thread is active
+    """
+    global t
+    t.cancel()
+    t.join()
+    t = None
+
+
+def channel_check():
+    """
+    Check to see if there are any open Twitch channels; if so, then start/continue the threaded process
+    """
+    for chan in hexchat.get_list("channels"):
+        if chan.type == 2 and chan.context.get_info("server") == "tmi.twitch.tv":
+            return True
+        else:
+            return False
+
+
 def get_current_status():
     """
     Update the stream status every 10 minutes
     """
     global t
-    parser = StreamParser(channel=None)
-    parser.get_twitch_channels()
-    parser.update_status()
-    t = threading.Timer(600, get_current_status)
-    t.daemon = True
-    t.start()
-
-
-def join_cb(word, word_eol, userdata):
-    """
-    Set the topic immediately after joining a channel
-    """
-    if is_twitch():
-        channel = hexchat.get_info("channel")[1:]
-        parser = StreamParser(channel=channel)
-        parser.get_stream_info()
-        parser.set_topic()
-
-    return hexchat.EAT_NONE
-
-
-def unload_cb(userdata):
-    """
-    These appear to be necessary to prevent HexChat from crashing
-    on quit while a thread is active in Python
-    """
-    global t
-    t.cancel()
-    t.join()
+    if channel_check():
+        get_twitch_chans()
+        update_status()
+        t = threading.Timer(600, get_current_status)
+        t.daemon = True
+        t.start()
 
 
 get_current_status()
-hexchat.hook_print("Open Context", join_cb)
 hexchat.hook_unload(unload_cb)
 
-hexchat.prnt(__module_name__ + " version " + __module_version__ + " loaded")
+print(__module_name__ + " version " + __module_version__ + " loaded")
