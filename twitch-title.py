@@ -24,18 +24,21 @@ def is_twitch():
 
 def set_topic(channel, display_name, status, game, title):
     global twitch_chans
+    channel = "#" + channel
     msg = "\00318{0}\00399 - {1} | Now playing: \00318{2}\00399 | {3}".format(display_name, status, game, title)
     stripped_msg = hexchat.strip(msg, -1, 3)
-    if twitch_chans["#{}".format(channel)] != stripped_msg:
-        twitch_chans["#{}".format(channel)] = stripped_msg
+    if twitch_chans[channel] != stripped_msg:
+        twitch_chans[channel] = stripped_msg
         # try to print stream status in current channel - doesn't seem to work without Do At plugin
         current_chan = hexchat.get_info("channel")
         hexchat.find_context(channel=current_chan).prnt(msg)
+        # get the proper context for the topic event
+        context = hexchat.find_context(channel=channel)
         if sys.platform == "win32":
             # HexChat on Windows has poor support for colors in topic bar
-            hexchat.command("RECV :{0}!Topic@twitch.tv TOPIC #{0} :{1}".format(channel, stripped_msg))
+            context.command("RECV :{0}!Topic@twitch.tv TOPIC {0} :{1}".format(channel, stripped_msg))
         else:
-            hexchat.command("RECV :{0}!Topic@twitch.tv TOPIC #{0} :{1}".format(channel, msg))
+            context.command("RECV :{0}!Topic@twitch.tv TOPIC {0} :{1}".format(channel, msg))
 
 
 def get_stream_info(channel):
@@ -76,7 +79,7 @@ def channel_check():
     Check to see if there are any open Twitch channels; if so, then start/continue the threaded process
     """
     for chan in hexchat.get_list("channels"):
-        if chan.type == 2 and chan.server == "tmi.twitch.tv":
+        if chan.type == 2 and chan.context.get_info("server") == "tmi.twitch.tv":
             return True
     return False
 
@@ -89,7 +92,7 @@ def get_current_status():
     if channel_check():
         get_twitch_chans()
         update_status()
-        t = threading.Timer(30, get_current_status)
+        t = threading.Timer(600, get_current_status)
         t.daemon = True
         t.start()
     else:
