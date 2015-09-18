@@ -14,14 +14,6 @@ t = None
 twitch_chans = {}
 
 
-def is_twitch():
-    server = hexchat.get_info("server")
-    if server and "twitch.tv" in server:
-        return True
-    else:
-        return False
-
-
 def set_topic(channel, display_name, status, game, title):
     global twitch_chans
     channel = "#" + channel
@@ -102,13 +94,28 @@ def get_current_status():
         t = None
 
 
+def is_twitch():
+    server = hexchat.get_info("server")
+    if server and "twitch.tv" in server:
+        return True
+    else:
+        return False
+
+
 def join_cb(word, word_eol, userdata):
     """
-    Restart the threaded process if necessary
+    Restart the threaded process if necessary, then immediately get the stream status
     """
     global t
-    if is_twitch() and not t:
-        get_current_status()
+    global twitch_chans
+    if is_twitch():
+        if not t:
+            get_current_status()
+        channel = hexchat.get_info("channel")
+        # TODO: make safer and don't modify the same object that is modified by get_stream_status
+        twitch_chans[channel] = ""
+        channel = channel[1:]
+        get_stream_info(channel)
 
 
 def unload_cb(userdata):
@@ -116,9 +123,9 @@ def unload_cb(userdata):
     Prevent HexChat from crashing while a thread is active
     """
     global t
-    t.cancel()
-    t.join()
-    t = None
+    if t:
+        t.cancel()
+        t.join()
 
 
 hexchat.hook_unload(unload_cb)
