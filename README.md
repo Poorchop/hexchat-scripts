@@ -1,24 +1,20 @@
 ### hexchat-scripts
-This repository includes my own scripts as well forks and backups of scripts made by others. Some of my scripts are
-still a work in progress. Please let me know if you find any issues. Many of these scripts were made possible with help
-or with templates from [TingPing](https://github.com/TingPing), [Farow](https://github.com/Farow),
-[Arnavion](https://github.com/Arnavion), [GermainZ](https://github.com/GermainZ), [ward](https://github.com/ward), and
+This is the collection of HexChat scripts that I have written. Some of these
+scripts are unfinished, so use them with caution. Feel free to submit issues but
+don't expect them to be addressed any time soon. Many of these scripts were made
+possible with help or with templates from
+[TingPing](https://github.com/TingPing), [Farow](https://github.com/Farow),
+[Arnavion](https://github.com/Arnavion),
+[GermainZ](https://github.com/GermainZ), [ward](https://github.com/ward), and
 others.
+
+Scripts in the "old" folder are broken and/or unsupported due to depreciations,
+API changes, or other similar factors. The mirror of Arnavion's scripts has been
+moved [here](https://github.com/Poorchop/Arnavion-scripts).
 
 ***
 
-#### [Arnavion-scripts] (./Arnavion-scripts)
-Clone of Arnavion's script repository. His Royal Highness requests that absolutely nobody contact him about these
-scripts for any reason whatsoever. I take no credit for any of these scripts and as the original repository did not
-include a license, their licensing is technically handled by the
-[GitHub Terms of Service](https://help.github.com/articles/github-terms-of-service#f-copyright-and-content-ownership).
-
-*Note:* This folder exists solely for archival purposes. I do not maintain these scripts and therefore I will not accept
-any changes made to them. Arnavion said himself that you are free to use these scripts and make changes as long as you
-don't sue him or hold him liable for any damages, so feel free to fork them and publish your changes locally. All other
-scripts outside this folder are very much open to pull requests.
-
-#### [adfilter.py] (adfilter.py)
+#### [adfilter.py](adfilter.py)
 Move common fserve advertisements to a separate tab
 
 To those coming from mIRC, this is meant to to partially replicate the ad-related functionality of
@@ -28,23 +24,23 @@ To those coming from mIRC, this is meant to to partially replicate the ad-relate
 You only need to modify `channels = []` for this script to work. See the script comment if you need instructions on how
 to add a channel to the filter list.
 
-#### [dcc-spam.py] (dcc-spam.py)
+#### [dcc-spam.py](dcc-spam.py)
 *Untested*: This script should theoretically detect DCC spammers and automatically add them to ignore. Since I haven't
 tested it, expect things to be broken. Currently, it only ignores people trying to repeatedly send the same file within
 a five second period.
 
-#### [detach.py] (detach.py)
+#### [detach.py](detach.py)
 *For use with ZNC only!*: Detach the current channel with a simple "/detach", eliminating the need to pass a channel
 name. If you do pass a channel name along with the command, then the specified channel is detached instead as normal.
 
-#### [follow.py] (follow.py)
+#### [follow.py](follow.py)
 Format messages from specific users to make them easier to follow
 
 *__Usage:__*	
 /follow &lt;nick&gt;	
 /unfollow &lt;nick&gt;
 
-#### [hexchat-livestreamer.py] (hexchat-livestreamer.py)
+#### [hexchat-livestreamer.py](./old/hexchat-livestreamer.py)
 *This script requires the [Exec](http://hexchat.readthedocs.org/en/latest/addons.html#exec) plugin, which must be
 selected from the HexChat installer during installation*
 
@@ -57,7 +53,7 @@ to Twitch chat with HexChat, then join a channel to launch the corresponding str
 
 You can alternately type `/livestreamer <streamer> <quality>` to manually launch a stream.
 
-#### [joinparttab.py] (joinparttab.py)
+#### [joinparttab.py](joinparttab.py)
 This script aggregates all join, part, and quit mesages from a user-defined list of servers and/or channels and places
 them in a new tab. The name of the channel from where the join/part/quit event originated is displayed before each
 join/part/quit message.
@@ -91,7 +87,7 @@ If executed properly, you will see a message that the channel/network has been r
 **To view your current filters:**	
 * `/jptab list filters`
 
-#### [link-title.py] (link-title.py)
+#### [link-title.py](link-title.py)
 *This script requires the [Do At](http://hexchat.readthedocs.org/en/latest/addons.html#do-at) plugin,
 which must be selected from the HexChat installer during installation*  
 *Python 3 version [here](https://github.com/PoorDog/hexchat-scripts/blob/python3/link-title.py)*
@@ -102,12 +98,12 @@ Plays nicely with
 [get-youtube-video-info.py](https://github.com/demialucard/xchat-scripts/blob/master/get-youtube-video-info.py)
 (some message formatting also taken from that script)
 
-#### [nick2server.py] (nick2server.py)
+#### [nick2server.py](nick2server.py)
 Remove nick change messages from channels and place them in the server tab instead
 
 Inspired by notice2server.pl from the legendary [Farow](https://github.com/Farow)
 
-#### [nickspy.py] (nickspy.py)
+#### [nickspy.py](nickspy.py)
 Colorize a channel name in the channel tree when certain users speak in said channel
 
 *__Usage:__*	
@@ -115,7 +111,7 @@ Add nicknames for spying on to `nicknames = []`. Nicknames should be in quotes a
 
 `nicknames = ["nick1", "nick2", "nick3"]`
 
-#### [pyglatin.py] (pyglatin.py)
+#### [pyglatin.py](pyglatin.py)
 This script is based on the PygLatin Python exercise written by Kate Lockwood:
 * If a word begins with a vowel, "ay" is appended to the end of the word.
 * If a word instead begins with a consonant, the first letter of the word is moved to the end, and the result is
@@ -124,7 +120,7 @@ appended with "ay".
 *__Usage:__*	
 /pyg &lt;message&gt;
 
-#### [requestfilter.py] (requestfilter.py)
+#### [requestfilter.py](requestfilter.py)
 Move search requests (@find, @search, @seek, etc.) and fserve file requests to a separate tab
 
 To those coming from mIRC, this is meant to to partially replicate the request-related functionality of
@@ -136,13 +132,13 @@ This script is meant to complement [adfilter.py](adfilter.py), but they can be u
 You only need to modify `channels = []` for this script to work.
 See the script comment if you need instructions on how to add a channel to the filter list.
 
-#### [shortnicks.py] (shortnicks.py)
+#### [shortnicks.py](shortnicks.py)
 Automatically truncate nicknames that are beyond a user-defined length
 
 *__Usage:__*	
 See script comment for instructions
 
-#### [twitch-autoemote.py] (twitch-autoemote.py)
+#### [twitch-autoemote.py](twitch-autoemote.py)
 Automatically formats TwitchTV emotes with proper capitalization
 
 Use [TingPing's twitch.py script](https://github.com/TingPing/plugins/blob/master/HexChat/twitch.py) for a more
@@ -167,7 +163,7 @@ Please be aware that this feature is not properly implemented yet, so right now,
 default list and will therefore probably cause some unwanted formatting. To disable subscriber emotes, set
 `allow_sub_emotes` to `False` (this is case sensitive!).
 
-#### [twitch-title.py] (twitch-title.py)
+#### [twitch-title.py](./old/twitch-title.py)
 This script will retrieve information such as stream status, current game, and broadcast title when you join a TwitchTV
 IRC channel. It will update the channel topic with this information in addition to printing it locally. It will also
 update this information every 10 minutes, so if a stream goes offline for example, the topic will eventually change to
@@ -175,7 +171,7 @@ reflect this.
 
 This script has only been tested with Python 3 as of typing this.
 
-#### [url-logger.py] (url-logger.py)
+#### [url-logger.py](url-logger.py)
 Log URLs to disk for specified channels and private messages. This is a pretty useless script because HexChat can already
 log URLs to disk, but this script places the logged URLs in a unique directory:
 configdir/logs/:network/:channel/urls.txt. You probably don't want to use this script, but if you do, you should modify
@@ -193,7 +189,7 @@ Place "script.py" in your HexChat addons folder:
 The HexChat Python plugin interface is required.
 
 ### Notes:
-All scripts are under the [MIT license] (./LICENSE) unless otherwise stated.
+All scripts are under the [MIT license](./LICENSE) unless otherwise stated.
 
 I highly recommend checking out [Farow's readme](https://github.com/Farow/hexchat-scripts). Both he and
 [TingPing](https://github.com/TingPing/plugins) have really useful scripts. Also check out my starred repositories to
@@ -227,30 +223,3 @@ Here are some links in addition to Farow's:
 
 #### Other interesting HexChat stuff
 * [truff215](https://github.com/truff215/bearded-batman) (Add-on to make Lua scripts)
-
-***
-
-Many of these scripts make use of code from the users mentioned at the top of this file, and for a majority of them,
-you're required to include a copy of [TingPing's license](https://github.com/TingPing/plugins/blob/master/license) if
-you plan on redistributing them. His license is printed here as well for legal purposes:
-
-The MIT License (MIT)
-
-Copyright (c) 2013 TingPing
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
